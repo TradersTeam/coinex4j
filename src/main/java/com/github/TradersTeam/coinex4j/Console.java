@@ -12,6 +12,10 @@ import java.util.List;
 
 public class Console {
     public static void main(String... args) {
+
+        //System.out.println(run("https://api.coinex.com/v1/market/list"));
+
+
         Retrofit client = Web.getClient();
         Call<ApiResponse<List<String>>> call = client.create(GeneralAPIs.class).getMarketList();
 
@@ -23,7 +27,7 @@ public class Console {
 
             @Override
             public void onFailure(Call<ApiResponse<List<String>>> call, Throwable t) {
-
+                System.out.println("error");
             }
         });
 
@@ -34,4 +38,17 @@ public class Console {
 //        });
 
     }
+
+
+//    static String run(String url) throws IOException {
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .build();
+//
+//        try (Response response = client.newCall(request).execute()) {
+//            return response.body().string();
+//        }
+//    }
+
 }

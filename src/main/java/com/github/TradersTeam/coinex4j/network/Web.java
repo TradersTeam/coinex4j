@@ -2,12 +2,14 @@ package com.github.TradersTeam.coinex4j.network;
 
 import com.github.TradersTeam.coinex4j.model.ApiResponse;
 import com.github.TradersTeam.coinex4j.util.Constants;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -17,8 +19,11 @@ public class Web {
 
     public static Retrofit getClient() {
         if (client == null) {
+            var okHttpClient = new OkHttpClient.Builder().callTimeout(5, TimeUnit.SECONDS).build();
+
             client = new Retrofit.Builder()
                     .baseUrl(Constants.baseUrl)
+                    .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
