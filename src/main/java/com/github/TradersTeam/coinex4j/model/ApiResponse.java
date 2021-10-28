@@ -19,6 +19,7 @@ package com.github.TradersTeam.coinex4j.model;
  *
  * @param <T> type of API response data, which can be anything like {@code String, Long or List}
  */
+@SuppressWarnings("unused")
 public class ApiResponse<T> {
     private final int code;
     private final T data;

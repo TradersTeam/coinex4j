@@ -1,6 +1,7 @@
 package com.github.TradersTeam.coinex4j.network.apis;
 
 import com.github.TradersTeam.coinex4j.model.ApiResponse;
+import com.github.TradersTeam.coinex4j.model.DateTime;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -9,5 +10,5 @@ public interface SystemAPIs {
     Call<ApiResponse<String>> getPing();
 
     @GET("perpetual/v1/time")
-    Call<ApiResponse<Long>> getTime();
+    Call<ApiResponse<DateTime>> getTime();
 }

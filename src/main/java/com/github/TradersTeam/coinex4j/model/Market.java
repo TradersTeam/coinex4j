@@ -1,11 +1,11 @@
 package com.github.TradersTeam.coinex4j.model;
 
-import com.github.TradersTeam.coinex4j.util.Utility;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Market {
+@SuppressWarnings("unused")
+public class Market extends Stringify{
     private final String name;
     private final int type;
     private final List<String> leverages;
@@ -92,10 +92,5 @@ public class Market {
 
     public boolean isAvailable() {
         return available;
-    }
-
-    @Override
-    public String toString() {
-        return Utility.objectToJson(this);
     }
 }

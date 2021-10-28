@@ -1,7 +1,9 @@
 package com.github.TradersTeam.coinex4j.network;
 
-import com.github.TradersTeam.coinex4j.model.ApiResponse;
+import com.github.TradersTeam.coinex4j.model.*;
 import com.github.TradersTeam.coinex4j.util.Constants;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
@@ -11,6 +13,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * CoinEx4J client class
@@ -20,14 +24,14 @@ public class CoinEx4J {
     private final Retrofit retrofit;
     private final OkHttpClient okHttpClient;
     private final String baseUrl;
-    private final Converter.Factory converter;
+    private final List<Converter.Factory> converters;
     private final boolean isClientAutoShutDowned;
 
     CoinEx4J(@NotNull Builder builder) {
         this.retrofit = builder.retrofit;
         this.okHttpClient = builder.okHttpClient;
         this.baseUrl = builder.baseUrl;
-        this.converter = builder.converter;
+        this.converters = builder.converters;
         this.isClientAutoShutDowned = builder.isClientAutoShutDowned;
     }
 
@@ -43,8 +47,8 @@ public class CoinEx4J {
         return baseUrl;
     }
 
-    public Converter.Factory getConverter() {
-        return converter;
+    public List<Converter.Factory> getConverters() {
+        return converters;
     }
 
     public boolean isClientAutoShutDowned() {
@@ -59,10 +63,11 @@ public class CoinEx4J {
         private Retrofit retrofit;
         private OkHttpClient okHttpClient;
         private String baseUrl;
-        private Converter.Factory converter;
+        private final List<Converter.Factory> converters;
         private boolean isClientAutoShutDowned = false;
 
         public Builder() {
+            converters = new ArrayList<>();
         }
 
         /**
@@ -99,13 +104,13 @@ public class CoinEx4J {
         }
 
         /**
-         * Sets converter factory for serialization and deserialization of objects.
+         * Adds new converter factory for serialization and deserialization of objects.
          *
          * @param converter converter factory instance
          * @return Builder
          */
-        public Builder converter(@NotNull Converter.Factory converter) {
-            this.converter = converter;
+        public Builder addConverter(@NotNull Converter.Factory converter) {
+            converters.add(converter);
             return this;
         }
 
@@ -122,7 +127,8 @@ public class CoinEx4J {
 
         /**
          * Create a default instance of CoinEx4J class,
-         * by default retrofit converter factory is Gson
+         * by default retrofit converter factory is Gson,
+         * additional converters can be added too using builder
          *
          * @return builder class for CoinEx4J
          * @see GsonConverterFactory
@@ -131,15 +137,21 @@ public class CoinEx4J {
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
 
-            if (converter == null)
-                converter = GsonConverterFactory.create();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(LimitConfig.class, new LimitConfigAdapter())
+                    .registerTypeAdapter(DateTime.class, new DateTimeAdapter());
+            Gson gson = gsonBuilder.create();
+
+            converters.add(GsonConverterFactory.create(gson));
 
             if (retrofit == null) {
-                retrofit = new Retrofit.Builder()
+                Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                         .baseUrl(Constants.baseUrl)
-                        .client(okHttpClient)
-                        .addConverterFactory(converter)
-                        .build();
+                        .client(okHttpClient);
+                for (Converter.Factory converter : converters) {
+                    retrofitBuilder.addConverterFactory(converter);
+                }
+                retrofit = retrofitBuilder.build();
             }
             return this;
         }
