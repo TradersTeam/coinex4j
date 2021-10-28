@@ -2,7 +2,7 @@ package com.github.TradersTeam.coinex4j;
 
 import com.github.TradersTeam.coinex4j.network.AsyncResponse;
 import com.github.TradersTeam.coinex4j.network.CoinEx4J;
-import com.github.TradersTeam.coinex4j.network.apis.GeneralAPIs;
+import com.github.TradersTeam.coinex4j.network.apis.MarketAPIs;
 
 public class Console {
     public static void main(String... args) {
@@ -11,7 +11,7 @@ public class Console {
                 .autoShutDown(true)
                 .build();
 
-        var call = coinEx4J.createAPI(GeneralAPIs.class).getMarketList();
+        var call = coinEx4J.createAPI(MarketAPIs.class).getMarketList();
         var asyncResponse = new AsyncResponse<>(call, coinEx4J);
         asyncResponse.async((response, throwable) -> {
             if (response != null && throwable == null) {
