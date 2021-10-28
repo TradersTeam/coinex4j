@@ -48,7 +48,7 @@ public class CoinEx4J {
         private OkHttpClient okHttpClient;
         private String baseUrl;
         private Converter.Factory converter;
-        private boolean isClientAutoShutDowned = true;
+        private boolean isClientAutoShutDowned = false;
 
         public Builder() {
         }
