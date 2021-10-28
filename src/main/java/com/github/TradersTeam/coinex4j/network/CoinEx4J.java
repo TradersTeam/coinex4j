@@ -1,11 +1,20 @@
 package com.github.TradersTeam.coinex4j.network;
 
+import com.github.TradersTeam.coinex4j.model.ApiResponse;
 import com.github.TradersTeam.coinex4j.util.Constants;
 import okhttp3.OkHttpClient;
+import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
 import retrofit2.Converter;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.io.IOException;
+
+/**
+ * CoinEx4J client class
+ */
 public class CoinEx4J {
 
     private final Retrofit retrofit;
@@ -14,7 +23,7 @@ public class CoinEx4J {
     private final Converter.Factory converter;
     private final boolean isClientAutoShutDowned;
 
-    CoinEx4J(Builder builder) {
+    CoinEx4J(@NotNull Builder builder) {
         this.retrofit = builder.retrofit;
         this.okHttpClient = builder.okHttpClient;
         this.baseUrl = builder.baseUrl;
@@ -42,6 +51,9 @@ public class CoinEx4J {
         return isClientAutoShutDowned;
     }
 
+    /**
+     * Builder class for CoinEx4J client class
+     */
     public static final class Builder {
 
         private Retrofit retrofit;
@@ -53,26 +65,56 @@ public class CoinEx4J {
         public Builder() {
         }
 
-        public Builder retrofit(Retrofit retrofit) {
+        /**
+         * Sets retrofit client for class.
+         *
+         * @param retrofit retrofit instance
+         * @return Builder
+         */
+        public Builder retrofit(@NotNull Retrofit retrofit) {
             this.retrofit = retrofit;
             return this;
         }
 
-        public Builder okhttp(OkHttpClient okHttpClient) {
+        /**
+         * Sets OkHttp client for class.
+         *
+         * @param okHttpClient OkHttp client instance
+         * @return Builder
+         */
+        public Builder okhttp(@NotNull OkHttpClient okHttpClient) {
             this.okHttpClient = okHttpClient;
             return this;
         }
 
-        public Builder baseUrl(String baseUrl) {
+        /**
+         * Sets API base URL.
+         *
+         * @param baseUrl API base URL.
+         * @return Builder
+         */
+        public Builder baseUrl(@NotNull String baseUrl) {
             this.baseUrl = baseUrl;
             return this;
         }
 
-        public Builder converter(Converter.Factory converter) {
+        /**
+         * Sets converter factory for serialization and deserialization of objects.
+         *
+         * @param converter converter factory instance
+         * @return Builder
+         */
+        public Builder converter(@NotNull Converter.Factory converter) {
             this.converter = converter;
             return this;
         }
 
+        /**
+         * Sets status of whether client is shut down automatically or not
+         *
+         * @param isClientAutoShutDowned true|false
+         * @return Builder
+         */
         public Builder autoShutDown(boolean isClientAutoShutDowned) {
             this.isClientAutoShutDowned = isClientAutoShutDowned;
             return this;
@@ -102,11 +144,34 @@ public class CoinEx4J {
             return this;
         }
 
+        /**
+         * Build configured CoinEx4J client class
+         *
+         * @return instance of CoinEx4J client class based on configuration
+         */
         public CoinEx4J build() {
             return new CoinEx4J(this);
         }
     }
 
+    /**
+     * Get response in blocking way
+     *
+     * @return Response
+     * @throws IOException if a problem occurred talking to the server
+     */
+    public <T> Response<ApiResponse<T>> get(@NotNull Call<ApiResponse<T>> call) throws IOException {
+        if (call.isExecuted()) throw new IllegalStateException("Already Executed");
+        return call.execute();
+    }
+
+    /**
+     * Wrapper method for creating retrofit service
+     *
+     * @param service class of service
+     * @param <T>     type of service class
+     * @return service interface
+     */
     public <T> T createAPI(final Class<T> service) {
         return retrofit.create(service);
     }
