@@ -23,4 +23,9 @@ public interface MarketAPIs {
 
     @GET(PERPETUAL_V1 + MARKET + "ticker" + "/all")
     Call<ApiResponse<MarketTickers>> getMarketTickers();
+
+    @GET(PERPETUAL_V1 + MARKET + "depth")
+    Call<ApiResponse<MarketDepth>> getMarketDepth(
+            @Query("market") String market, @Query("merge") Double merge, @Query("limit") int limit
+    );
 }

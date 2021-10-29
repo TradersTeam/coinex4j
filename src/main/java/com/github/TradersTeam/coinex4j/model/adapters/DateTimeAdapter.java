@@ -1,5 +1,6 @@
-package com.github.TradersTeam.coinex4j.model;
+package com.github.TradersTeam.coinex4j.model.adapters;
 
+import com.github.TradersTeam.coinex4j.model.DateTime;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
