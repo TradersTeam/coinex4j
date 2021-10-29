@@ -1,5 +1,7 @@
 package com.github.TradersTeam.coinex4j.model;
 
+import com.github.TradersTeam.coinex4j.model.util.Stringify;
+
 import java.time.LocalDateTime;
 
 @SuppressWarnings("unused")

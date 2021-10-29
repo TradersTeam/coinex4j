@@ -11,8 +11,8 @@ import java.time.ZoneOffset;
 public class DateTimeAdapter extends TypeAdapter<DateTime> {
 
     @Override
-    public void write(JsonWriter out, DateTime value) {
-        //
+    public void write(JsonWriter writer, DateTime value) throws IOException {
+        writer.value(value.getTimestamp());
     }
 
     @Override

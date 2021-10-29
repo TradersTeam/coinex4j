@@ -1,8 +1,8 @@
-package com.github.TradersTeam.coinex4j.model;
+package com.github.TradersTeam.coinex4j.model.util;
 
 import com.github.TradersTeam.coinex4j.util.Utility;
 
-abstract class Stringify {
+public abstract class Stringify {
 
     @Override
     public String toString() {

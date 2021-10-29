@@ -1,11 +1,12 @@
 package com.github.TradersTeam.coinex4j.model;
 
+import com.github.TradersTeam.coinex4j.model.util.Stringify;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Market extends Stringify{
+public class Market extends Stringify {
     private final String name;
     private final int type;
     private final List<String> leverages;

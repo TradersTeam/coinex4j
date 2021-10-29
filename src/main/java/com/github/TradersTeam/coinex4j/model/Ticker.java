@@ -1,5 +1,6 @@
 package com.github.TradersTeam.coinex4j.model;
 
+import com.github.TradersTeam.coinex4j.model.util.Stringify;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")

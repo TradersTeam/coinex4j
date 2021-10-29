@@ -9,8 +9,12 @@ import java.io.IOException;
 public class LimitConfigAdapter extends TypeAdapter<LimitConfig> {
 
     @Override
-    public void write(JsonWriter out, LimitConfig value) {
-        //
+    public void write(JsonWriter writer, LimitConfig value) throws IOException {
+        writer.beginArray();
+        writer.value(value.getAmount());
+        writer.value(value.getAmount());
+        writer.value(value.getMaintainMargin());
+        writer.endArray();
     }
 
     @Override

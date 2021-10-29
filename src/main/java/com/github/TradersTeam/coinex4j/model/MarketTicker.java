@@ -1,5 +1,7 @@
 package com.github.TradersTeam.coinex4j.model;
 
+import com.github.TradersTeam.coinex4j.model.util.Stringify;
+
 @SuppressWarnings("unused")
 public class MarketTicker extends Stringify {
 
