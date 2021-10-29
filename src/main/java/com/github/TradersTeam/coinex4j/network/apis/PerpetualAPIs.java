@@ -8,7 +8,7 @@ import retrofit2.http.Query;
 import java.util.List;
 import java.util.Map;
 
-public interface MarketAPIs {
+public interface PerpetualAPIs {
     String PERPETUAL_V1 = "perpetual/v1/";
     String MARKET = "market/";
 
