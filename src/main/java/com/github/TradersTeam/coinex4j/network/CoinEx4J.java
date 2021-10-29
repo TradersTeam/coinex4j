@@ -1,9 +1,8 @@
 package com.github.TradersTeam.coinex4j.network;
 
-import com.github.TradersTeam.coinex4j.model.*;
+import com.github.TradersTeam.coinex4j.model.ApiResponse;
 import com.github.TradersTeam.coinex4j.util.Constants;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.github.TradersTeam.coinex4j.util.Utility;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
@@ -137,12 +136,7 @@ public class CoinEx4J {
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
 
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(LimitConfig.class, new LimitConfigAdapter())
-                    .registerTypeAdapter(DateTime.class, new DateTimeAdapter());
-            Gson gson = gsonBuilder.create();
-
-            converters.add(GsonConverterFactory.create(gson));
+            converters.add(GsonConverterFactory.create(Utility.getGson()));
 
             if (retrofit == null) {
                 Retrofit.Builder retrofitBuilder = new Retrofit.Builder()

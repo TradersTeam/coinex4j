@@ -1,9 +1,6 @@
 package com.github.TradersTeam.coinex4j.network.apis;
 
-import com.github.TradersTeam.coinex4j.model.ApiResponse;
-import com.github.TradersTeam.coinex4j.model.LimitConfig;
-import com.github.TradersTeam.coinex4j.model.Market;
-import com.github.TradersTeam.coinex4j.model.MarketTicker;
+import com.github.TradersTeam.coinex4j.model.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -23,4 +20,7 @@ public interface MarketAPIs {
 
     @GET(PERPETUAL_V1 + MARKET + "ticker")
     Call<ApiResponse<MarketTicker>> getMarketTicker(@Query("market") String market);
+
+    @GET(PERPETUAL_V1 + MARKET + "ticker" + "/all")
+    Call<ApiResponse<MarketTickers>> getMarketTickers();
 }

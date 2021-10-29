@@ -30,7 +30,7 @@ public enum APIResponseEnum {
 
     public final int code;
 
-    private APIResponseEnum(int code) {
+    APIResponseEnum(int code) {
         this.code = code;
     }
 

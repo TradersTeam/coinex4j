@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
 public class Ticker extends Stringify {
-    private final long vol;
+    private final double vol;
     private final double low;
     private final double open;
     private final double high;
@@ -15,7 +15,7 @@ public class Ticker extends Stringify {
     @SerializedName("funding_time")
     private final int fundingTime;
     @SerializedName("position_amount")
-    private final long positionAmount;
+    private final double positionAmount;
     @SerializedName("funding_rate_last")
     private final double fundingRateLast;
     @SerializedName("funding_rate_next")
@@ -37,7 +37,7 @@ public class Ticker extends Stringify {
     @SerializedName("sell_amount")
     private final double sellAmount;
 
-    public Ticker(long vol, double low, double open, double high, double last, double buy, int period, int fundingTime, long positionAmount, double fundingRateLast, double fundingRateNext, double fundingRatePredict, String insurance, double signPrice, double indexPrice, double sellTotal, double buyTotal, double buyAmount, double sell, double sellAmount) {
+    public Ticker(double vol, double low, double open, double high, double last, double buy, int period, int fundingTime, double positionAmount, double fundingRateLast, double fundingRateNext, double fundingRatePredict, String insurance, double signPrice, double indexPrice, double sellTotal, double buyTotal, double buyAmount, double sell, double sellAmount) {
         this.vol = vol;
         this.low = low;
         this.open = open;
@@ -60,7 +60,7 @@ public class Ticker extends Stringify {
         this.sellAmount = sellAmount;
     }
 
-    public long getVol() {
+    public double getVol() {
         return vol;
     }
 
@@ -92,7 +92,7 @@ public class Ticker extends Stringify {
         return fundingTime;
     }
 
-    public long getPositionAmount() {
+    public double getPositionAmount() {
         return positionAmount;
     }
 
