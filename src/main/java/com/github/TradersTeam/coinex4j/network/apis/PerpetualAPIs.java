@@ -1,7 +1,7 @@
 package com.github.TradersTeam.coinex4j.network.apis;
 
 import com.github.TradersTeam.coinex4j.model.*;
-import retrofit2.Call;
+import com.github.TradersTeam.coinex4j.network.util.CallX;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -14,26 +14,26 @@ public interface PerpetualAPIs {
 
     interface System {
         @GET(PERPETUAL_V1 + "ping")
-        Call<ApiResponse<String>> getPing();
+        CallX<ApiResponse<String>> getPing();
 
         @GET(PERPETUAL_V1 + "time")
-        Call<ApiResponse<DateTime>> getTime();
+        CallX<ApiResponse<DateTime>> getTime();
     }
 
     @GET(PERPETUAL_V1 + MARKET + "list")
-    Call<ApiResponse<List<Market>>> getMarketList();
+    CallX<ApiResponse<List<Market>>> getMarketList();
 
     @GET(PERPETUAL_V1 + MARKET + "limit_config")
-    Call<ApiResponse<Map<String, List<LimitConfig>>>> getMarketLimitConfigList();
+    CallX<ApiResponse<Map<String, List<LimitConfig>>>> getMarketLimitConfigList();
 
     @GET(PERPETUAL_V1 + MARKET + "ticker")
-    Call<ApiResponse<MarketTicker>> getMarketTicker(@Query("market") String market);
+    CallX<ApiResponse<MarketTicker>> getMarketTicker(@Query("market") String market);
 
     @GET(PERPETUAL_V1 + MARKET + "ticker" + "/all")
-    Call<ApiResponse<MarketTickers>> getMarketTickers();
+    CallX<ApiResponse<MarketTickers>> getMarketTickers();
 
     @GET(PERPETUAL_V1 + MARKET + "depth")
-    Call<ApiResponse<MarketDepth>> getMarketDepth(
+    CallX<ApiResponse<MarketDepth>> getMarketDepth(
             @Query("market") String market, @Query("merge") Double merge, @Query("limit") int limit
     );
 }

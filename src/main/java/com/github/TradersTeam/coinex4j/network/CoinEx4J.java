@@ -1,6 +1,7 @@
 package com.github.TradersTeam.coinex4j.network;
 
 import com.github.TradersTeam.coinex4j.model.ApiResponse;
+import com.github.TradersTeam.coinex4j.network.util.CallXAdapterFactory;
 import com.github.TradersTeam.coinex4j.util.Constants;
 import com.github.TradersTeam.coinex4j.util.Utility;
 import okhttp3.OkHttpClient;
@@ -141,7 +142,8 @@ public class CoinEx4J {
             if (retrofit == null) {
                 Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                         .baseUrl(Constants.baseUrl)
-                        .client(okHttpClient);
+                        .client(okHttpClient)
+                        .addCallAdapterFactory(new CallXAdapterFactory());
                 for (Converter.Factory converter : converters) {
                     retrofitBuilder.addConverterFactory(converter);
                 }

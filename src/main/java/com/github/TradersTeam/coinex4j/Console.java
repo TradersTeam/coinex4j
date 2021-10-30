@@ -1,6 +1,5 @@
 package com.github.TradersTeam.coinex4j;
 
-import com.github.TradersTeam.coinex4j.network.AsyncResponse;
 import com.github.TradersTeam.coinex4j.network.CoinEx4J;
 import com.github.TradersTeam.coinex4j.network.apis.PerpetualAPIs;
 
@@ -12,8 +11,7 @@ public class Console {
                 .build();
 
         var call = coinEx4J.createAPI(PerpetualAPIs.class).getMarketList();
-        var asyncResponse = new AsyncResponse<>(call, coinEx4J);
-        asyncResponse.async((response, throwable) -> {
+        call.asyncBody(coinEx4J, (response, throwable) -> {
             if (response != null && throwable == null) {
                 System.out.println(response.getData());
             } else {
