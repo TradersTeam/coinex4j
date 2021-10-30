@@ -12,6 +12,14 @@ public interface PerpetualAPIs {
     String PERPETUAL_V1 = "perpetual/v1/";
     String MARKET = "market/";
 
+    interface System {
+        @GET(PERPETUAL_V1 + "ping")
+        Call<ApiResponse<String>> getPing();
+
+        @GET(PERPETUAL_V1 + "time")
+        Call<ApiResponse<DateTime>> getTime();
+    }
+
     @GET(PERPETUAL_V1 + MARKET + "list")
     Call<ApiResponse<List<Market>>> getMarketList();
 
