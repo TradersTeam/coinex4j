@@ -40,4 +40,48 @@ public class PerpetualTicker extends Ticker {
         this.sellTotal = sellTotal;
         this.buyTotal = buyTotal;
     }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public int getFundingTime() {
+        return fundingTime;
+    }
+
+    public double getPositionAmount() {
+        return positionAmount;
+    }
+
+    public double getFundingRateLast() {
+        return fundingRateLast;
+    }
+
+    public double getFundingRateNext() {
+        return fundingRateNext;
+    }
+
+    public double getFundingRatePredict() {
+        return fundingRatePredict;
+    }
+
+    public String getInsurance() {
+        return insurance;
+    }
+
+    public double getSignPrice() {
+        return signPrice;
+    }
+
+    public double getIndexPrice() {
+        return indexPrice;
+    }
+
+    public double getSellTotal() {
+        return sellTotal;
+    }
+
+    public double getBuyTotal() {
+        return buyTotal;
+    }
 }
