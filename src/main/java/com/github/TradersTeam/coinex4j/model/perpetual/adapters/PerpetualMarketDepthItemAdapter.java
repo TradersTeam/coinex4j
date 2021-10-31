@@ -1,16 +1,16 @@
-package com.github.TradersTeam.coinex4j.model.adapters;
+package com.github.TradersTeam.coinex4j.model.perpetual.adapters;
 
-import com.github.TradersTeam.coinex4j.model.MarketDepthItem;
+import com.github.TradersTeam.coinex4j.model.perpetual.PerpetualMarketDepthItem;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class MarketDepthItemAdapter extends TypeAdapter<MarketDepthItem> {
+public class PerpetualMarketDepthItemAdapter extends TypeAdapter<PerpetualMarketDepthItem> {
 
     @Override
-    public void write(JsonWriter writer, MarketDepthItem value) throws IOException {
+    public void write(JsonWriter writer, PerpetualMarketDepthItem value) throws IOException {
         writer.beginArray();
         writer.value(value.getPrice());
         writer.value(value.getCumulative());
@@ -18,7 +18,7 @@ public class MarketDepthItemAdapter extends TypeAdapter<MarketDepthItem> {
     }
 
     @Override
-    public MarketDepthItem read(JsonReader reader) throws IOException {
+    public PerpetualMarketDepthItem read(JsonReader reader) throws IOException {
         double price;
         double cumulative;
 
@@ -27,6 +27,6 @@ public class MarketDepthItemAdapter extends TypeAdapter<MarketDepthItem> {
         cumulative = reader.nextDouble();
         reader.endArray();
 
-        return new MarketDepthItem(price, cumulative);
+        return new PerpetualMarketDepthItem(price, cumulative);
     }
 }

@@ -1,12 +1,12 @@
-package com.github.TradersTeam.coinex4j.model;
+package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.model.util.Stringify;
 
-public class MarketDepthItem extends Stringify {
+public class PerpetualMarketDepthItem extends Stringify {
     private final double price;
     private final double cumulative;
 
-    public MarketDepthItem(double price, double cumulative) {
+    public PerpetualMarketDepthItem(double price, double cumulative) {
         this.price = price;
         this.cumulative = cumulative;
     }

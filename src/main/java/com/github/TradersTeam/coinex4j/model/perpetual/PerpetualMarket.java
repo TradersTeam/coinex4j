@@ -1,4 +1,4 @@
-package com.github.TradersTeam.coinex4j.model;
+package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.model.util.Stringify;
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Market extends Stringify {
+public class PerpetualMarket extends Stringify {
     private final String name;
     private final int type;
     private final List<String> leverages;
@@ -27,7 +27,7 @@ public class Market extends Stringify {
     private final String tickSize;
     private final boolean available;
 
-    public Market(String name, int type, List<String> leverages, String stock, String money, int feePrec, int stockPrec, int moneyPrec, int amountPrec, String amountMin, String multiplier, String tickSize, boolean available) {
+    public PerpetualMarket(String name, int type, List<String> leverages, String stock, String money, int feePrec, int stockPrec, int moneyPrec, int amountPrec, String amountMin, String multiplier, String tickSize, boolean available) {
         this.name = name;
         this.type = type;
         this.leverages = leverages;

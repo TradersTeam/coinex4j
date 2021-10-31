@@ -1,14 +1,14 @@
-package com.github.TradersTeam.coinex4j.model;
+package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.util.Utility;
 
 @SuppressWarnings("unused")
-public class LimitConfig {
+public class PerpetualLimitConfig {
     private final double amount;
     private final int leverage;
     private final double maintainMargin;
 
-    public LimitConfig(double amount, int leverage, double maintainMargin) {
+    public PerpetualLimitConfig(double amount, int leverage, double maintainMargin) {
         this.amount = amount;
         this.leverage = leverage;
         this.maintainMargin = maintainMargin;

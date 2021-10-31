@@ -1,14 +1,14 @@
-package com.github.TradersTeam.coinex4j.model;
+package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.model.util.Stringify;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MarketDepth extends Stringify {
+public class PerpetualMarketDepth extends Stringify {
 
-    private final List<MarketDepthItem> asks;
-    private final List<MarketDepthItem> bids;
+    private final List<PerpetualMarketDepthItem> asks;
+    private final List<PerpetualMarketDepthItem> bids;
 
     private final double last;
     @SerializedName("sign_price")
@@ -16,7 +16,7 @@ public class MarketDepth extends Stringify {
     @SerializedName("index_price")
     private final double indexPrice;
 
-    public MarketDepth(List<MarketDepthItem> asks, List<MarketDepthItem> bids, double last, double signPrice, double indexPrice) {
+    public PerpetualMarketDepth(List<PerpetualMarketDepthItem> asks, List<PerpetualMarketDepthItem> bids, double last, double signPrice, double indexPrice) {
         this.asks = asks;
         this.bids = bids;
         this.last = last;
@@ -24,11 +24,11 @@ public class MarketDepth extends Stringify {
         this.indexPrice = indexPrice;
     }
 
-    public List<MarketDepthItem> getAsks() {
+    public List<PerpetualMarketDepthItem> getAsks() {
         return asks;
     }
 
-    public List<MarketDepthItem> getBids() {
+    public List<PerpetualMarketDepthItem> getBids() {
         return bids;
     }
 

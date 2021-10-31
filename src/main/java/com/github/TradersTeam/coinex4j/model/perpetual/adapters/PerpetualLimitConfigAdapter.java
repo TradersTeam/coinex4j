@@ -1,16 +1,16 @@
-package com.github.TradersTeam.coinex4j.model.adapters;
+package com.github.TradersTeam.coinex4j.model.perpetual.adapters;
 
-import com.github.TradersTeam.coinex4j.model.LimitConfig;
+import com.github.TradersTeam.coinex4j.model.perpetual.PerpetualLimitConfig;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class LimitConfigAdapter extends TypeAdapter<LimitConfig> {
+public class PerpetualLimitConfigAdapter extends TypeAdapter<PerpetualLimitConfig> {
 
     @Override
-    public void write(JsonWriter writer, LimitConfig value) throws IOException {
+    public void write(JsonWriter writer, PerpetualLimitConfig value) throws IOException {
         writer.beginArray();
         writer.value(value.getAmount());
         writer.value(value.getAmount());
@@ -19,7 +19,7 @@ public class LimitConfigAdapter extends TypeAdapter<LimitConfig> {
     }
 
     @Override
-    public LimitConfig read(JsonReader reader) throws IOException {
+    public PerpetualLimitConfig read(JsonReader reader) throws IOException {
         double amount;
         int leverage;
         double maintainMargin;
@@ -32,6 +32,6 @@ public class LimitConfigAdapter extends TypeAdapter<LimitConfig> {
 
         reader.endArray();
 
-        return new LimitConfig(amount, leverage, maintainMargin);
+        return new PerpetualLimitConfig(amount, leverage, maintainMargin);
     }
 }
