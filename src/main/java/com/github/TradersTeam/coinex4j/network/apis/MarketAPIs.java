@@ -1,6 +1,7 @@
 package com.github.TradersTeam.coinex4j.network.apis;
 
 import com.github.TradersTeam.coinex4j.model.ApiResponse;
+import com.github.TradersTeam.coinex4j.model.MarketDepth;
 import com.github.TradersTeam.coinex4j.model.MarketTicker;
 import com.github.TradersTeam.coinex4j.model.MarketTickers;
 import com.github.TradersTeam.coinex4j.network.util.CallX;
@@ -24,4 +25,9 @@ public interface MarketAPIs {
 
     @GET(V1 + MARKET + TICKER + SLASH + "all")
     CallX<ApiResponse<MarketTickers>> getMarketTickers();
+
+    @GET(V1 + MARKET + "depth")
+    CallX<ApiResponse<MarketDepth>> getMarketDepth(
+            @Query("market") String market, @Query("merge") Double merge, @Query("limit") int limit
+    );
 }

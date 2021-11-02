@@ -1,12 +1,12 @@
 package com.github.TradersTeam.coinex4j.model.perpetual;
 
-import com.github.TradersTeam.coinex4j.model.util.Stringify;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class PerpetualMarket extends Stringify {
+public class PerpetualMarket extends PrettyJson {
     private final String name;
     private final int type;
     private final List<String> leverages;

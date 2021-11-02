@@ -1,11 +1,10 @@
 package com.github.TradersTeam.coinex4j.model;
 
-import com.github.TradersTeam.coinex4j.model.util.Stringify;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 
 import java.time.LocalDateTime;
 
-@SuppressWarnings("unused")
-public class DateTime extends Stringify {
+public class DateTime extends PrettyJson {
 
     private final long timestamp;
     private final LocalDateTime localDateTime;

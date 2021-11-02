@@ -13,7 +13,10 @@ public class DateTimeAdapter extends TypeAdapter<DateTime> {
 
     @Override
     public void write(JsonWriter writer, DateTime value) throws IOException {
-        writer.value(value.getTimestamp());
+        long writeData;
+        if (value != null) writeData = value.getTimestamp();
+        else writeData = 0;
+        writer.value(writeData);
     }
 
     @Override

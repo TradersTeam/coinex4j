@@ -1,11 +1,11 @@
 package com.github.TradersTeam.coinex4j.model;
 
-import com.github.TradersTeam.coinex4j.model.util.Stringify;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
-public class MarketTickers extends Stringify {
+public class MarketTickers extends PrettyJson {
 
     private final DateTime date;
     @SerializedName("ticker")

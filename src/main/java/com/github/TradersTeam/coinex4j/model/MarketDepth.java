@@ -1,34 +1,35 @@
-package com.github.TradersTeam.coinex4j.model.perpetual;
+package com.github.TradersTeam.coinex4j.model;
 
-import com.github.TradersTeam.coinex4j.model.util.Stringify;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class PerpetualMarketDepth extends Stringify {
-
-    private final List<PerpetualMarketDepthItem> asks;
-    private final List<PerpetualMarketDepthItem> bids;
+public class MarketDepth extends PrettyJson {
+    private final List<MarketDepthItem> asks;
+    private final List<MarketDepthItem> bids;
 
     private final double last;
     @SerializedName("sign_price")
     private final double signPrice;
     @SerializedName("index_price")
     private final double indexPrice;
+    private final DateTime time;
 
-    public PerpetualMarketDepth(List<PerpetualMarketDepthItem> asks, List<PerpetualMarketDepthItem> bids, double last, double signPrice, double indexPrice) {
+    public MarketDepth(List<MarketDepthItem> asks, List<MarketDepthItem> bids, double last, double signPrice, double indexPrice, DateTime time) {
         this.asks = asks;
         this.bids = bids;
         this.last = last;
         this.signPrice = signPrice;
         this.indexPrice = indexPrice;
+        this.time = time;
     }
 
-    public List<PerpetualMarketDepthItem> getAsks() {
+    public List<MarketDepthItem> getAsks() {
         return asks;
     }
 
-    public List<PerpetualMarketDepthItem> getBids() {
+    public List<MarketDepthItem> getBids() {
         return bids;
     }
 
@@ -42,5 +43,9 @@ public class PerpetualMarketDepth extends Stringify {
 
     public double getIndexPrice() {
         return indexPrice;
+    }
+
+    public DateTime getTime() {
+        return time;
     }
 }

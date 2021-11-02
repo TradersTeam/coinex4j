@@ -2,7 +2,7 @@ package com.github.TradersTeam.coinex4j.model.util;
 
 import com.github.TradersTeam.coinex4j.util.Utility;
 
-public abstract class Stringify {
+public abstract class PrettyJson {
 
     @Override
     public String toString() {

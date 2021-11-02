@@ -34,7 +34,7 @@ public interface PerpetualAPIs {
     CallX<ApiResponse<PerpetualMarketTickers>> getMarketTickers();
 
     @GET(PERPETUAL_V1 + MARKET + "depth")
-    CallX<ApiResponse<PerpetualMarketDepth>> getMarketDepth(
+    CallX<ApiResponse<MarketDepth>> getMarketDepth(
             @Query("market") String market, @Query("merge") Double merge, @Query("limit") int limit
     );
 }

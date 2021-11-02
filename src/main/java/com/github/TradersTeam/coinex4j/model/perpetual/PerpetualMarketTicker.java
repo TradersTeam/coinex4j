@@ -1,11 +1,11 @@
 package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.model.DateTime;
-import com.github.TradersTeam.coinex4j.model.util.Stringify;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
-public class PerpetualMarketTicker extends Stringify {
+public class PerpetualMarketTicker extends PrettyJson {
 
     private final DateTime date;
     @SerializedName("ticker")

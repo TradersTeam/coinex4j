@@ -1,9 +1,9 @@
 package com.github.TradersTeam.coinex4j.model;
 
-import com.github.TradersTeam.coinex4j.model.util.Stringify;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 
-public class Ticker extends Stringify {
+public class Ticker extends PrettyJson {
     protected final double vol;
     protected final double low;
     protected final double open;
