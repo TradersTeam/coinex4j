@@ -1,9 +1,6 @@
 package com.github.TradersTeam.coinex4j.network.apis;
 
-import com.github.TradersTeam.coinex4j.model.ApiResponse;
-import com.github.TradersTeam.coinex4j.model.MarketDepth;
-import com.github.TradersTeam.coinex4j.model.MarketTicker;
-import com.github.TradersTeam.coinex4j.model.MarketTickers;
+import com.github.TradersTeam.coinex4j.model.*;
 import com.github.TradersTeam.coinex4j.network.util.CallX;
 import org.jetbrains.annotations.Range;
 import retrofit2.http.GET;
@@ -45,4 +42,7 @@ public interface MarketAPIs {
     CallX<ApiResponse<MarketDepth>> getMarketDepth(
             @Query("market") String market, @Query("merge") double merge, @Range(from = 1, to = 50) @Query("limit") int limit
     );
+
+    @GET(V1 + MARKET + "deals")
+    CallX<ApiResponse<List<MarketTransaction>>> getMarketDeals(@Query("market") String market);
 }

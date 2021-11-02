@@ -12,8 +12,8 @@ public class MarketDepthItemAdapter extends TypeAdapter<MarketDepthItem> {
     @Override
     public void write(JsonWriter writer, MarketDepthItem value) throws IOException {
         writer.beginArray();
-        writer.value(value.getPrice());
-        writer.value(value.getAmount());
+        writer.value(value.price());
+        writer.value(value.amount());
         writer.endArray();
     }
 

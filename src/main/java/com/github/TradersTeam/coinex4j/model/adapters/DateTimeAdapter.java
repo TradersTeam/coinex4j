@@ -14,7 +14,7 @@ public class DateTimeAdapter extends TypeAdapter<DateTime> {
     @Override
     public void write(JsonWriter writer, DateTime value) throws IOException {
         long writeData;
-        if (value != null) writeData = value.getTimestamp();
+        if (value != null) writeData = value.timestamp();
         else writeData = 0;
         writer.value(writeData);
     }
@@ -22,9 +22,9 @@ public class DateTimeAdapter extends TypeAdapter<DateTime> {
     @Override
     public DateTime read(JsonReader reader) throws IOException {
         long timestamp = reader.nextLong();
-        long millis = timestamp / 1000;
+        long seconds = timestamp / 1000;
         int nanos = (int) (timestamp % 1000);
-        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(millis, nanos, ZoneOffset.UTC);
+        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(seconds, nanos, ZoneOffset.UTC);
         return new DateTime(timestamp, localDateTime);
     }
 }

@@ -2,9 +2,17 @@ package com.github.TradersTeam.coinex4j.model;
 
 import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
+@Accessors(fluent = true)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Data()
 public class MarketDepth extends PrettyJson {
     private final List<MarketDepthItem> asks;
     private final List<MarketDepthItem> bids;
@@ -15,37 +23,4 @@ public class MarketDepth extends PrettyJson {
     @SerializedName("index_price")
     private final double indexPrice;
     private final DateTime time;
-
-    public MarketDepth(List<MarketDepthItem> asks, List<MarketDepthItem> bids, double last, double signPrice, double indexPrice, DateTime time) {
-        this.asks = asks;
-        this.bids = bids;
-        this.last = last;
-        this.signPrice = signPrice;
-        this.indexPrice = indexPrice;
-        this.time = time;
-    }
-
-    public List<MarketDepthItem> getAsks() {
-        return asks;
-    }
-
-    public List<MarketDepthItem> getBids() {
-        return bids;
-    }
-
-    public double getLast() {
-        return last;
-    }
-
-    public double getSignPrice() {
-        return signPrice;
-    }
-
-    public double getIndexPrice() {
-        return indexPrice;
-    }
-
-    public DateTime getTime() {
-        return time;
-    }
 }

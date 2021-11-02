@@ -1,5 +1,11 @@
 package com.github.TradersTeam.coinex4j.model;
 
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
 /**
  * Class used for API response de-serialization,
  * example of API response JSON:
@@ -20,31 +26,12 @@ package com.github.TradersTeam.coinex4j.model;
  * @param <T> type of API response data, which can be anything like {@code String, Long or List}
  */
 @SuppressWarnings("unused")
-public class ApiResponse<T> {
+@Accessors(fluent = true)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Data()
+public class ApiResponse<T> extends PrettyJson {
     private final int code;
     private final T data;
     private final String message;
-
-    /**
-     * @param code    http status code
-     * @param data    API response data
-     * @param message API response message
-     */
-    public ApiResponse(int code, T data, String message) {
-        this.code = code;
-        this.data = data;
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

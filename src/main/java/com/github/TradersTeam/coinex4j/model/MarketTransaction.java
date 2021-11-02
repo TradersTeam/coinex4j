@@ -11,10 +11,13 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Data()
-public class MarketTicker extends PrettyJson {
-
-    //server time when returning
-    private final DateTime date;
-    @SerializedName("ticker")
-    private final Ticker ticker;
+public final class MarketTransaction extends PrettyJson {
+    private final long id;
+    private final MarketTransactionType type;
+    private final double price;
+    private final double amount;
+    @SerializedName("date")
+    private final DateTime dateOfSeconds;
+    @SerializedName("date_ms")
+    private final DateTime dateOfMilliseconds;
 }
