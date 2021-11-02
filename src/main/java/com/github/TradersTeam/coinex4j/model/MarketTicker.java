@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class MarketTicker extends PrettyJson {
 
+    //server time when returning
     private final DateTime date;
     @SerializedName("ticker")
     private Ticker ticker;

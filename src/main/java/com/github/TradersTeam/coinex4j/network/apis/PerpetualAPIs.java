@@ -3,6 +3,7 @@ package com.github.TradersTeam.coinex4j.network.apis;
 import com.github.TradersTeam.coinex4j.model.*;
 import com.github.TradersTeam.coinex4j.model.perpetual.*;
 import com.github.TradersTeam.coinex4j.network.util.CallX;
+import org.jetbrains.annotations.Range;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -35,6 +36,6 @@ public interface PerpetualAPIs {
 
     @GET(PERPETUAL_V1 + MARKET + "depth")
     CallX<ApiResponse<MarketDepth>> getMarketDepth(
-            @Query("market") String market, @Query("merge") Double merge, @Query("limit") int limit
+            @Query("market") String market, @Query("merge") double merge, @Range(from = 1, to = 50) @Query("limit") int limit
     );
 }
