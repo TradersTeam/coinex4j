@@ -92,4 +92,12 @@ public interface MarketAPIs {
      */
     @GET(V1 + MARKET + "detail")
     CallX<ApiResponse<MarketInfo>> getSingleMarketInfo(@Query("market") String market);
+
+    /**
+     * Acquire AMM Market List
+     *
+     * @return list of AMM Market list
+     */
+    @GET(V1 + "amm/market")
+    CallX<ApiResponse<List<String>>> getAmmMarketList();
 }
