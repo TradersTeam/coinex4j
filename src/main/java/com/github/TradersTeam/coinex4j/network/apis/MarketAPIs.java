@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MarketAPIs {
 
@@ -52,7 +53,7 @@ public interface MarketAPIs {
      * @param market Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
      * @param lastId Optional | Transaction history id, send 0 to draw from the latest record.
      * @param limit  Optional | Less than or equal to 1000, default 100
-     * @return latest transaction data
+     * @return list of latest transaction data
      */
     @GET(V1 + MARKET + "deals")
     CallX<ApiResponse<List<MarketTransaction>>> getMarketDeals(
@@ -66,7 +67,7 @@ public interface MarketAPIs {
      * @param market Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
      * @param limit  Optional | Less than or equal to 1000, default 100
      * @param type   Required | '1min', '3min', '5min', '15min', '30min', '1hour', '2hour', '4hour', '6hour', '12hour', '1day', '1day', '1week'
-     * @return k-line data
+     * @return list of k-line data
      */
     @GET(V1 + MARKET + "kline")
     CallX<ApiResponse<List<KLineData>>> getKLineData(
@@ -74,4 +75,12 @@ public interface MarketAPIs {
             @Query("type") String type,
             @Nullable @Query("limit") Integer limit
     );
+
+    /**
+     * Acquire market detail information
+     *
+     * @return key value map of market detail information
+     */
+    @GET(V1 + MARKET + "info")
+    CallX<ApiResponse<Map<String, MarketInfo>>> getMarketInfo();
 }
