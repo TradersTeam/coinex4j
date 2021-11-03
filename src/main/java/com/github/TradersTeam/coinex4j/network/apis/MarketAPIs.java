@@ -77,10 +77,19 @@ public interface MarketAPIs {
     );
 
     /**
-     * Acquire market detail information
+     * Acquire markets detail information
      *
      * @return key value map of market detail information
      */
     @GET(V1 + MARKET + "info")
-    CallX<ApiResponse<Map<String, MarketInfo>>> getMarketInfo();
+    CallX<ApiResponse<Map<String, MarketInfo>>> getMarketsInfo();
+
+    /**
+     * Acquire single market detail information
+     *
+     * @param market single market name
+     * @return single market detail information
+     */
+    @GET(V1 + MARKET + "detail")
+    CallX<ApiResponse<MarketInfo>> getSingleMarketInfo(@Query("market") String market);
 }
