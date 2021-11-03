@@ -59,4 +59,19 @@ public interface MarketAPIs {
             @Query("market") String market,
             @Nullable @Query("last_id") Integer lastId,
             @Nullable @Query("limit") Integer limit);
+
+    /**
+     * Acquire k-line data for specified period, including latest 1000 data
+     *
+     * @param market Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
+     * @param limit  Optional | Less than or equal to 1000, default 100
+     * @param type   Required | '1min', '3min', '5min', '15min', '30min', '1hour', '2hour', '4hour', '6hour', '12hour', '1day', '1day', '1week'
+     * @return k-line data
+     */
+    @GET(V1 + MARKET + "kline")
+    CallX<ApiResponse<List<KLineData>>> getKLineData(
+            @Query("market") String market,
+            @Query("type") String type,
+            @Nullable @Query("limit") Integer limit
+    );
 }
