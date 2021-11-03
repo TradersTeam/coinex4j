@@ -12,12 +12,18 @@ import lombok.experimental.Accessors;
 @ToString(callSuper = true)
 @Data()
 public final class MarketTransaction extends PrettyJson {
+    //Transaction No
     private final long id;
+    //buy/sell
     private final MarketTransactionType type;
+    //Transaction price
     private final double price;
+    //Transaction amount
     private final double amount;
+    //Transaction time
     @SerializedName("date")
     private final DateTime dateOfSeconds;
+    //Transaction time(ms)
     @SerializedName("date_ms")
     private final DateTime dateOfMilliseconds;
 }
