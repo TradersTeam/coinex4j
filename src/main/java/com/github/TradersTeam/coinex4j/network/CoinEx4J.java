@@ -5,6 +5,7 @@ import com.github.TradersTeam.coinex4j.network.util.CallXAdapterFactory;
 import com.github.TradersTeam.coinex4j.util.Constants;
 import com.github.TradersTeam.coinex4j.util.Utility;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Converter;
@@ -14,18 +15,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * CoinEx4J client class
  */
 public class CoinEx4J {
 
+    public static final String SECRET_KEY = "secret_key";
+    public static final String ACCESS_ID = "access_id";
     private final Retrofit retrofit;
     private final OkHttpClient okHttpClient;
     private final String baseUrl;
     private final List<Converter.Factory> converters;
     private final boolean isClientAutoShutDowned;
+    private final String accessId;
+    private final String secretKey;
 
     CoinEx4J(@NotNull Builder builder) {
         this.retrofit = builder.retrofit;
@@ -33,6 +40,16 @@ public class CoinEx4J {
         this.baseUrl = builder.baseUrl;
         this.converters = builder.converters;
         this.isClientAutoShutDowned = builder.isClientAutoShutDowned;
+        this.accessId = builder.accessId;
+        this.secretKey = builder.secretKey;
+    }
+
+    public String getAccessId() {
+        return accessId;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
     }
 
     public Retrofit getRetrofit() {
@@ -65,9 +82,21 @@ public class CoinEx4J {
         private String baseUrl;
         private final List<Converter.Factory> converters;
         private boolean isClientAutoShutDowned = false;
+        private String accessId;
+        private String secretKey;
 
         public Builder() {
             converters = new ArrayList<>();
+        }
+
+        public Builder accessId(String accessId) {
+            this.accessId = accessId;
+            return this;
+        }
+
+        public Builder secretKey(String secretKey) {
+            this.secretKey = secretKey;
+            return this;
         }
 
         /**
@@ -136,6 +165,45 @@ public class CoinEx4J {
         public Builder createDefaultInstance() {
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
+
+            okHttpClient.newBuilder().addInterceptor(chain -> {
+                Request originalRequest = chain.request();
+                var originalUrl = originalRequest.url();
+
+                var queryString = originalUrl.query();
+                var accessIdQuery = originalUrl.queryParameter(ACCESS_ID);
+
+                if (queryString != null && !queryString.isEmpty() && accessIdQuery != null && !accessIdQuery.isEmpty() && accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty()) {
+                    var queryParams = new HashMap<>();
+                    queryParams.put(ACCESS_ID, accessId);
+                    queryParams.put(SECRET_KEY, secretKey);
+
+                    for (String param : queryString.split("&")) {
+                        String[] pair = param.split("=");
+                        var paramName = pair[0];
+                        var paramValue = pair[1];
+                        queryParams.put(paramName, paramValue);
+                    }
+
+                    List<String> keys = new ArrayList<>();
+                    for (Object key : queryParams.keySet())
+                        keys.add((String) key);
+
+                    var stringBuilder = new StringBuilder();
+                    keys = keys.stream().sorted().collect(Collectors.toList());
+                    for (String key : keys)
+                        stringBuilder.append(key).append("=").append(queryParams.get(key)).append("&");
+
+                    var md5 = Utility.MD5(stringBuilder.toString());
+                    if (md5 != null && !md5.isEmpty()) {
+                        var newRequest = originalRequest.newBuilder()
+                                .addHeader(SECRET_KEY, md5)
+                                .build();
+                        return chain.proceed(newRequest);
+                    }
+                }
+                return chain.proceed(originalRequest);
+            });
 
             converters.add(GsonConverterFactory.create(Utility.getGson()));
 
