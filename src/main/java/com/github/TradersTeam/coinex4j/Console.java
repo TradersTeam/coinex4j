@@ -6,7 +6,6 @@ import com.github.TradersTeam.coinex4j.network.apis.PerpetualAPIs;
 public class Console {
     public static void main(String... args) {
         CoinEx4J coinEx4J = new CoinEx4J.Builder()
-                .createDefaultInstance()
                 .autoShutDown(true)
                 .build();
 

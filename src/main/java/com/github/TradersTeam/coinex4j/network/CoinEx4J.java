@@ -88,8 +88,6 @@ public class CoinEx4J {
         private String accessId;
         private String secretKey;
 
-        private boolean isDefaultBuilderCalled = false;
-
         public Builder() {
             converters = new ArrayList<>();
         }
@@ -101,7 +99,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder accessId(@NotNull String accessId) {
-            handleIllegalBuilderMethodChain();
             this.accessId = accessId;
             return this;
         }
@@ -113,7 +110,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder secretKey(@NotNull String secretKey) {
-            handleIllegalBuilderMethodChain();
             this.secretKey = secretKey;
             return this;
         }
@@ -125,7 +121,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder retrofit(@NotNull Retrofit retrofit) {
-            handleIllegalBuilderMethodChain();
             this.retrofit = retrofit;
             return this;
         }
@@ -137,7 +132,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder okhttp(@NotNull OkHttpClient okHttpClient) {
-            handleIllegalBuilderMethodChain();
             this.okHttpClient = okHttpClient;
             return this;
         }
@@ -149,7 +143,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder baseUrl(@NotNull String baseUrl) {
-            handleIllegalBuilderMethodChain();
             this.baseUrl = baseUrl;
             return this;
         }
@@ -161,7 +154,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder addConverter(@NotNull Converter.Factory converter) {
-            handleIllegalBuilderMethodChain();
             converters.add(converter);
             return this;
         }
@@ -173,7 +165,6 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder autoShutDown(boolean isClientAutoShutDowned) {
-            handleIllegalBuilderMethodChain();
             this.isClientAutoShutDowned = isClientAutoShutDowned;
             return this;
         }
@@ -182,13 +173,14 @@ public class CoinEx4J {
          * Create a default instance of CoinEx4J class,
          * by default retrofit converter factory is Gson,
          * additional converters can be added too using builder,
-         * <p>
-         * <b>this method should be called last in the builder chain.</b>
          *
          * @return builder class for CoinEx4J
          * @see GsonConverterFactory
          */
-        public Builder createDefaultInstance() {
+        private Builder createDefaultInstance() {
+            if (baseUrl == null)
+                baseUrl = Constants.baseUrl;
+
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
 
@@ -196,17 +188,18 @@ public class CoinEx4J {
 
             converters.add(GsonConverterFactory.create(Utility.getGson()));
 
+            Retrofit.Builder retrofitBuilder;
             if (retrofit == null) {
-                Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                        .baseUrl(Constants.baseUrl)
-                        .client(okHttpClient)
-                        .addCallAdapterFactory(new CallXAdapterFactory());
-                for (Converter.Factory converter : converters) {
-                    retrofitBuilder.addConverterFactory(converter);
-                }
-                retrofit = retrofitBuilder.build();
-            }
-            isDefaultBuilderCalled = true;
+                retrofitBuilder = new Retrofit.Builder()
+                        .baseUrl(baseUrl)
+                        .client(okHttpClient);
+            } else retrofitBuilder = retrofit.newBuilder();
+
+            retrofitBuilder.addCallAdapterFactory(new CallXAdapterFactory());
+            for (Converter.Factory converter : converters)
+                retrofitBuilder.addConverterFactory(converter);
+            retrofit = retrofitBuilder.build();
+
             return this;
         }
 
@@ -216,7 +209,7 @@ public class CoinEx4J {
          * @return instance of CoinEx4J client class based on configuration
          */
         public CoinEx4J build() {
-            return new CoinEx4J(this);
+            return new CoinEx4J(createDefaultInstance());
         }
 
         /**
@@ -254,11 +247,6 @@ public class CoinEx4J {
                 if (index != listSize - 1) stringBuilder.append("&");
             }
             return stringBuilder.toString();
-        }
-
-        private void handleIllegalBuilderMethodChain() {
-            if (isDefaultBuilderCalled)
-                throw new IllegalStateException(SHOULD_BE_CALLED_LAST_IN_METHOD_CHAIN_CALL);
         }
 
         /**
