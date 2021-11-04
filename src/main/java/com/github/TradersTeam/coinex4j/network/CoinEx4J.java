@@ -4,6 +4,7 @@ import com.github.TradersTeam.coinex4j.model.ApiResponse;
 import com.github.TradersTeam.coinex4j.network.util.CallXAdapterFactory;
 import com.github.TradersTeam.coinex4j.util.Constants;
 import com.github.TradersTeam.coinex4j.util.Utility;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
@@ -191,44 +192,7 @@ public class CoinEx4J {
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
 
-
-            okHttpClient = okHttpClient.newBuilder().addInterceptor(chain -> {
-                var originalRequest = chain.request();
-                var originalUrl = originalRequest.url();
-                var queryString = originalUrl.query();
-
-                var doesApiNeedAuthorization = accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty();
-
-                if (doesApiNeedAuthorization) {
-                    var queryParams = new HashMap<String, String>();
-                    queryParams.put(ACCESS_ID, accessId);
-
-                    if (queryString != null && !queryString.isEmpty())
-                        queryParams.putAll(createMapFromQueryString(queryString));
-
-                    List<String> keys = new ArrayList<>(queryParams.keySet());
-                    //According to the documentation, the order of the keys is important and must be sorted
-                    keys = keys.stream().sorted().collect(Collectors.toList());
-                    //secret key should be added to the end of the sorted list
-                    queryParams.put(SECRET_KEY, secretKey);
-                    keys.add(SECRET_KEY);
-
-                    String pseudoQueryString = createPseudoQueryString(queryParams, keys);
-
-                    var md5 = Utility.MD5(pseudoQueryString);
-                    if (md5 != null && !md5.isEmpty()) {
-                        var newUrl = originalUrl.newBuilder()
-                                .addQueryParameter(ACCESS_ID, accessId)
-                                .build();
-                        var newRequest = originalRequest.newBuilder()
-                                .url(newUrl)
-                                .addHeader(AUTHORIZATION, md5)
-                                .build();
-                        return chain.proceed(newRequest);
-                    }
-                }
-                return chain.proceed(originalRequest);
-            }).build();
+            okHttpClient = okHttpClient.newBuilder().addInterceptor(this::apiInterceptor).build();
 
             converters.add(GsonConverterFactory.create(Utility.getGson()));
 
@@ -295,6 +259,53 @@ public class CoinEx4J {
         private void handleIllegalBuilderMethodChain() {
             if (isDefaultBuilderCalled)
                 throw new IllegalStateException(SHOULD_BE_CALLED_LAST_IN_METHOD_CHAIN_CALL);
+        }
+
+        /**
+         * Interceptor for API calls with authorization
+         *
+         * @param chain chain of interceptors
+         * @return response of the API call
+         */
+        @NotNull
+        private okhttp3.Response apiInterceptor(Interceptor.Chain chain) throws IOException {
+            var originalRequest = chain.request();
+            var originalUrl = originalRequest.url();
+            var queryString = originalUrl.query();
+
+            var doesApiNeedAuthorization = accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty();
+
+            if (doesApiNeedAuthorization) {
+                var queryParams = new HashMap<String, String>();
+                queryParams.put(ACCESS_ID, accessId);
+
+                if (queryString != null && !queryString.isEmpty())
+                    queryParams.putAll(createMapFromQueryString(queryString));
+
+                List<String> keys = new ArrayList<>(queryParams.keySet());
+                //According to the documentation, the order of the keys is important and must be sorted
+                keys = keys.stream().sorted().collect(Collectors.toList());
+                //secret key should be added to the end of the sorted list
+                queryParams.put(SECRET_KEY, secretKey);
+                keys.add(SECRET_KEY);
+
+                String pseudoQueryString = createPseudoQueryString(queryParams, keys);
+
+                var signature = Utility.MD5(pseudoQueryString);
+                if (signature != null && !signature.isEmpty()) {
+                    //add access id to the query string for authorization
+                    var newUrl = originalUrl.newBuilder()
+                            .addQueryParameter(ACCESS_ID, accessId)
+                            .build();
+                    //add signature to header for authorization
+                    var newRequest = originalRequest.newBuilder()
+                            .url(newUrl)
+                            .addHeader(AUTHORIZATION, signature)
+                            .build();
+                    return chain.proceed(newRequest);
+                }
+            }
+            return chain.proceed(originalRequest);
         }
     }
 

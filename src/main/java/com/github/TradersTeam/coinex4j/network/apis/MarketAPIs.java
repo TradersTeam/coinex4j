@@ -101,6 +101,12 @@ public interface MarketAPIs {
     @GET(V1 + "amm/market")
     CallX<ApiResponse<List<String>>> getAmmMarketList();
 
+    /**
+     * Inquire account asset. When the total assets (available + frozen) of a coin are 0, no coin data return.
+     *
+     * @param tonce Required | The timestamp of the request
+     * @return account asset
+     */
     @GET(V1 + "balance/info")
-    CallX<ApiResponse<Object>> getBalance(@Query("tonce") Long tonce);
+    CallX<ApiResponse<Map<String, AccountAsset>>> getBalance(@Query("tonce") Long tonce);
 }
