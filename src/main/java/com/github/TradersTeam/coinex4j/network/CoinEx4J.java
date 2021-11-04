@@ -5,7 +5,6 @@ import com.github.TradersTeam.coinex4j.network.util.CallXAdapterFactory;
 import com.github.TradersTeam.coinex4j.util.Constants;
 import com.github.TradersTeam.coinex4j.util.Utility;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Converter;
@@ -26,6 +25,8 @@ public class CoinEx4J {
 
     public static final String SECRET_KEY = "secret_key";
     public static final String ACCESS_ID = "access_id";
+    public static final String AUTHORIZATION = "authorization";
+
     private final Retrofit retrofit;
     private final OkHttpClient okHttpClient;
     private final String baseUrl;
@@ -77,6 +78,7 @@ public class CoinEx4J {
      */
     public static final class Builder {
 
+        public static final String SHOULD_BE_CALLED_LAST_IN_METHOD_CHAIN_CALL = "Default builder should be called last in method chain call.";
         private Retrofit retrofit;
         private OkHttpClient okHttpClient;
         private String baseUrl;
@@ -85,16 +87,32 @@ public class CoinEx4J {
         private String accessId;
         private String secretKey;
 
+        private boolean isDefaultBuilderCalled = false;
+
         public Builder() {
             converters = new ArrayList<>();
         }
 
-        public Builder accessId(String accessId) {
+        /**
+         * Sets API access id.
+         *
+         * @param accessId API access id.
+         * @return Builder
+         */
+        public Builder accessId(@NotNull String accessId) {
+            handleIllegalBuilderMethodChain();
             this.accessId = accessId;
             return this;
         }
 
-        public Builder secretKey(String secretKey) {
+        /**
+         * Sets API secret key.
+         *
+         * @param secretKey API secret key.
+         * @return Builder
+         */
+        public Builder secretKey(@NotNull String secretKey) {
+            handleIllegalBuilderMethodChain();
             this.secretKey = secretKey;
             return this;
         }
@@ -106,6 +124,7 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder retrofit(@NotNull Retrofit retrofit) {
+            handleIllegalBuilderMethodChain();
             this.retrofit = retrofit;
             return this;
         }
@@ -117,6 +136,7 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder okhttp(@NotNull OkHttpClient okHttpClient) {
+            handleIllegalBuilderMethodChain();
             this.okHttpClient = okHttpClient;
             return this;
         }
@@ -128,6 +148,7 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder baseUrl(@NotNull String baseUrl) {
+            handleIllegalBuilderMethodChain();
             this.baseUrl = baseUrl;
             return this;
         }
@@ -139,6 +160,7 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder addConverter(@NotNull Converter.Factory converter) {
+            handleIllegalBuilderMethodChain();
             converters.add(converter);
             return this;
         }
@@ -150,6 +172,7 @@ public class CoinEx4J {
          * @return Builder
          */
         public Builder autoShutDown(boolean isClientAutoShutDowned) {
+            handleIllegalBuilderMethodChain();
             this.isClientAutoShutDowned = isClientAutoShutDowned;
             return this;
         }
@@ -157,7 +180,9 @@ public class CoinEx4J {
         /**
          * Create a default instance of CoinEx4J class,
          * by default retrofit converter factory is Gson,
-         * additional converters can be added too using builder
+         * additional converters can be added too using builder,
+         * <p>
+         * <b>this method should be called last in the builder chain.</b>
          *
          * @return builder class for CoinEx4J
          * @see GsonConverterFactory
@@ -166,44 +191,44 @@ public class CoinEx4J {
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
 
-            okHttpClient.newBuilder().addInterceptor(chain -> {
-                Request originalRequest = chain.request();
+
+            okHttpClient = okHttpClient.newBuilder().addInterceptor(chain -> {
+                var originalRequest = chain.request();
                 var originalUrl = originalRequest.url();
-
                 var queryString = originalUrl.query();
-                var accessIdQuery = originalUrl.queryParameter(ACCESS_ID);
 
-                if (queryString != null && !queryString.isEmpty() && accessIdQuery != null && !accessIdQuery.isEmpty() && accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty()) {
-                    var queryParams = new HashMap<>();
+                var doesApiNeedAuthorization = accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty();
+
+                if (doesApiNeedAuthorization) {
+                    var queryParams = new HashMap<String, String>();
                     queryParams.put(ACCESS_ID, accessId);
-                    queryParams.put(SECRET_KEY, secretKey);
 
-                    for (String param : queryString.split("&")) {
-                        String[] pair = param.split("=");
-                        var paramName = pair[0];
-                        var paramValue = pair[1];
-                        queryParams.put(paramName, paramValue);
-                    }
+                    if (queryString != null && !queryString.isEmpty())
+                        queryParams.putAll(createMapFromQueryString(queryString));
 
-                    List<String> keys = new ArrayList<>();
-                    for (Object key : queryParams.keySet())
-                        keys.add((String) key);
-
-                    var stringBuilder = new StringBuilder();
+                    List<String> keys = new ArrayList<>(queryParams.keySet());
+                    //According to the documentation, the order of the keys is important and must be sorted
                     keys = keys.stream().sorted().collect(Collectors.toList());
-                    for (String key : keys)
-                        stringBuilder.append(key).append("=").append(queryParams.get(key)).append("&");
+                    //secret key should be added to the end of the sorted list
+                    queryParams.put(SECRET_KEY, secretKey);
+                    keys.add(SECRET_KEY);
 
-                    var md5 = Utility.MD5(stringBuilder.toString());
+                    String pseudoQueryString = createPseudoQueryString(queryParams, keys);
+
+                    var md5 = Utility.MD5(pseudoQueryString);
                     if (md5 != null && !md5.isEmpty()) {
+                        var newUrl = originalUrl.newBuilder()
+                                .addQueryParameter(ACCESS_ID, accessId)
+                                .build();
                         var newRequest = originalRequest.newBuilder()
-                                .addHeader(SECRET_KEY, md5)
+                                .url(newUrl)
+                                .addHeader(AUTHORIZATION, md5)
                                 .build();
                         return chain.proceed(newRequest);
                     }
                 }
                 return chain.proceed(originalRequest);
-            });
+            }).build();
 
             converters.add(GsonConverterFactory.create(Utility.getGson()));
 
@@ -217,6 +242,7 @@ public class CoinEx4J {
                 }
                 retrofit = retrofitBuilder.build();
             }
+            isDefaultBuilderCalled = true;
             return this;
         }
 
@@ -227,6 +253,48 @@ public class CoinEx4J {
          */
         public CoinEx4J build() {
             return new CoinEx4J(this);
+        }
+
+        /**
+         * Create a map from query string
+         *
+         * @param queryString query string
+         * @return map of query string
+         */
+        private HashMap<String, String> createMapFromQueryString(String queryString) {
+            var queryParams = new HashMap<String, String>();
+            for (String param : queryString.split("&")) {
+                String[] pair = param.split("=");
+                var paramName = pair[0];
+                var paramValue = pair[1];
+                queryParams.put(paramName, paramValue);
+            }
+            return queryParams;
+        }
+
+        /**
+         * Create a pseudo query string from the given map
+         * creates the pseudo query string used for signing and adding to the request authorization header
+         *
+         * @param queryParams map of query parameters
+         * @param keys        list of keys in the map
+         * @return pseudo query string
+         */
+        private String createPseudoQueryString(HashMap<String, String> queryParams, List<String> keys) {
+            var stringBuilder = new StringBuilder();
+            var listSize = keys.size();
+            //iterate over the keys and append the key and value to the string builder
+            for (int index = 0; index < listSize; index++) {
+                stringBuilder.append(keys.get(index)).append("=").append(queryParams.get(keys.get(index)));
+                //if the index is not the last index, append a &
+                if (index != listSize - 1) stringBuilder.append("&");
+            }
+            return stringBuilder.toString();
+        }
+
+        private void handleIllegalBuilderMethodChain() {
+            if (isDefaultBuilderCalled)
+                throw new IllegalStateException(SHOULD_BE_CALLED_LAST_IN_METHOD_CHAIN_CALL);
         }
     }
 

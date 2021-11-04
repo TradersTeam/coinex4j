@@ -101,6 +101,6 @@ public interface MarketAPIs {
     @GET(V1 + "amm/market")
     CallX<ApiResponse<List<String>>> getAmmMarketList();
 
-    @GET(V1 + "balance")
-    CallX<ApiResponse<Object>> getBalance();
+    @GET(V1 + "balance/info")
+    CallX<ApiResponse<Object>> getBalance(@Query("tonce") Long tonce);
 }
