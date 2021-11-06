@@ -2,10 +2,17 @@ package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
+@Accessors(fluent = true)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Data()
 public class PerpetualMarket extends PrettyJson {
     private final String name;
     private final int type;
@@ -26,72 +33,4 @@ public class PerpetualMarket extends PrettyJson {
     @SerializedName("tick_size")
     private final String tickSize;
     private final boolean available;
-
-    public PerpetualMarket(String name, int type, List<String> leverages, String stock, String money, int feePrec, int stockPrec, int moneyPrec, int amountPrec, String amountMin, String multiplier, String tickSize, boolean available) {
-        this.name = name;
-        this.type = type;
-        this.leverages = leverages;
-        this.stock = stock;
-        this.money = money;
-        this.feePrec = feePrec;
-        this.stockPrec = stockPrec;
-        this.moneyPrec = moneyPrec;
-        this.amountPrec = amountPrec;
-        this.amountMin = amountMin;
-        this.multiplier = multiplier;
-        this.tickSize = tickSize;
-        this.available = available;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public List<String> getLeverages() {
-        return leverages;
-    }
-
-    public String getStock() {
-        return stock;
-    }
-
-    public String getMoney() {
-        return money;
-    }
-
-    public int getFeePrec() {
-        return feePrec;
-    }
-
-    public int getStockPrec() {
-        return stockPrec;
-    }
-
-    public int getMoneyPrec() {
-        return moneyPrec;
-    }
-
-    public int getAmountPrec() {
-        return amountPrec;
-    }
-
-    public String getAmountMin() {
-        return amountMin;
-    }
-
-    public String getMultiplier() {
-        return multiplier;
-    }
-
-    public String getTickSize() {
-        return tickSize;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
 }

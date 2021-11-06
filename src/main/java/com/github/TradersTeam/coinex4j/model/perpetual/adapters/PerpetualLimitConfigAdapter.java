@@ -12,9 +12,9 @@ public class PerpetualLimitConfigAdapter extends TypeAdapter<PerpetualLimitConfi
     @Override
     public void write(JsonWriter writer, PerpetualLimitConfig value) throws IOException {
         writer.beginArray();
-        writer.value(value.getAmount());
-        writer.value(value.getAmount());
-        writer.value(value.getMaintainMargin());
+        writer.value(value.amount());
+        writer.value(value.leverage());
+        writer.value(value.maintainMargin());
         writer.endArray();
     }
 

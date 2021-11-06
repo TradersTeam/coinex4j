@@ -1,33 +1,17 @@
 package com.github.TradersTeam.coinex4j.model.perpetual;
 
-import com.github.TradersTeam.coinex4j.util.Utility;
+import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-@SuppressWarnings("unused")
-public class PerpetualLimitConfig {
+@Accessors(fluent = true)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Data()
+public class PerpetualLimitConfig extends PrettyJson {
     private final double amount;
     private final int leverage;
     private final double maintainMargin;
-
-    public PerpetualLimitConfig(double amount, int leverage, double maintainMargin) {
-        this.amount = amount;
-        this.leverage = leverage;
-        this.maintainMargin = maintainMargin;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public Integer getLeverage() {
-        return leverage;
-    }
-
-    public Double getMaintainMargin() {
-        return maintainMargin;
-    }
-
-    @Override
-    public String toString() {
-        return Utility.objectToJson(this);
-    }
 }

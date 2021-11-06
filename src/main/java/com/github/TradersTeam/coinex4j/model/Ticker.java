@@ -4,6 +4,7 @@ import com.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
@@ -11,25 +12,26 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Data()
+@NoArgsConstructor
 public class Ticker extends PrettyJson {
     //24H volume
-    protected final double vol;
+    protected double vol;
     //24H the lowest price
-    protected final double low;
+    protected double low;
     //24H open price
-    protected final double open;
+    protected double open;
     //24H the highest price
-    protected final double high;
+    protected double high;
     //latest price
-    protected final double last;
+    protected double last;
     //buy 1
-    protected final double buy;
+    protected double buy;
     //buy 1 amount
     @SerializedName("buy_amount")
-    protected final double buyAmount;
+    protected double buyAmount;
     //sell 1
-    protected final double sell;
+    protected double sell;
     //sell 1 amount
     @SerializedName("sell_amount")
-    protected final double sellAmount;
+    protected double sellAmount;
 }

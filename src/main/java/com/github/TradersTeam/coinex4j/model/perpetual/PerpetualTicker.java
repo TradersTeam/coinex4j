@@ -2,8 +2,15 @@ package com.github.TradersTeam.coinex4j.model.perpetual;
 
 import com.github.TradersTeam.coinex4j.model.Ticker;
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
-@SuppressWarnings("unused")
+@Accessors(fluent = true)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Data()
 public class PerpetualTicker extends Ticker {
     private final int period;
     @SerializedName("funding_time")
@@ -25,63 +32,4 @@ public class PerpetualTicker extends Ticker {
     private final double sellTotal;
     @SerializedName("buy_total")
     private final double buyTotal;
-
-    public PerpetualTicker(double vol, double low, double open, double high, double last, double buy, double buyAmount, double sell, double sellAmount, int period, int fundingTime, double positionAmount, double fundingRateLast, double fundingRateNext, double fundingRatePredict, String insurance, double signPrice, double indexPrice, double sellTotal, double buyTotal) {
-        super(vol, low, open, high, last, buy, buyAmount, sell, sellAmount);
-        this.period = period;
-        this.fundingTime = fundingTime;
-        this.positionAmount = positionAmount;
-        this.fundingRateLast = fundingRateLast;
-        this.fundingRateNext = fundingRateNext;
-        this.fundingRatePredict = fundingRatePredict;
-        this.insurance = insurance;
-        this.signPrice = signPrice;
-        this.indexPrice = indexPrice;
-        this.sellTotal = sellTotal;
-        this.buyTotal = buyTotal;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public int getFundingTime() {
-        return fundingTime;
-    }
-
-    public double getPositionAmount() {
-        return positionAmount;
-    }
-
-    public double getFundingRateLast() {
-        return fundingRateLast;
-    }
-
-    public double getFundingRateNext() {
-        return fundingRateNext;
-    }
-
-    public double getFundingRatePredict() {
-        return fundingRatePredict;
-    }
-
-    public String getInsurance() {
-        return insurance;
-    }
-
-    public double getSignPrice() {
-        return signPrice;
-    }
-
-    public double getIndexPrice() {
-        return indexPrice;
-    }
-
-    public double getSellTotal() {
-        return sellTotal;
-    }
-
-    public double getBuyTotal() {
-        return buyTotal;
-    }
 }
