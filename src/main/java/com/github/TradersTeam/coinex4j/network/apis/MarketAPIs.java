@@ -53,7 +53,7 @@ public interface MarketAPIs {
      * @param market Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
      * @param lastId Optional | Transaction history id, send 0 to draw from the latest record.
      * @param limit  Optional | Less than or equal to 1000, default 100
-     * @return list of latest transaction data
+     * @return list of latest transaction/deals data
      */
     @GET(V1 + MARKET + "deals")
     CallX<ApiResponse<List<MarketTransaction>>> getMarketDeals(

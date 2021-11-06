@@ -3,6 +3,7 @@ package com.github.TradersTeam.coinex4j.network.apis;
 import com.github.TradersTeam.coinex4j.model.*;
 import com.github.TradersTeam.coinex4j.model.perpetual.*;
 import com.github.TradersTeam.coinex4j.network.util.CallX;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -78,4 +79,18 @@ public interface PerpetualAPIs {
     CallX<ApiResponse<MarketDepth>> getMarketDepth(
             @Query("market") String market, @Query("merge") double merge, @Range(from = 1, to = 50) @Query("limit") int limit
     );
+
+    /**
+     * Acquire latest perpetual transaction data，return up to 1000
+     *
+     * @param market Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
+     * @param lastId Optional | Transaction history id, send 0 to draw from the latest record.
+     * @param limit  Optional | Less than or equal to 1000, default 100
+     * @return list of latest transaction/deals data
+     */
+    @GET(PERPETUAL_V1 + MARKET + "deals")
+    CallX<ApiResponse<List<MarketTransaction>>> getMarketDeals(
+            @Query("market") String market,
+            @Nullable @Query("last_id") Integer lastId,
+            @Nullable @Query("limit") Integer limit);
 }
