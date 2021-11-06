@@ -55,6 +55,7 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 |async|returns a callback with type of `BiConsumer` with `Response<T>` and `Throwable` parameters |
 |asyncCall|returns two callbacks, one for success (`BiConsumer` with `Call<T>` and `Response<T>` parameters) and another for failure (`BiConsumer` with `Call<T>` and `Throwable` parameters)|
 |asyncBody|returns a callback with type of `BiConsumer` with `T` and `Throwable` as parameters|
+
 `T` is response body type.
 ## Download
 ### Gradle
