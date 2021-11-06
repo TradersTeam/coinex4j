@@ -184,7 +184,13 @@ public class CoinEx4J {
             if (okHttpClient == null)
                 okHttpClient = new OkHttpClient.Builder().build();
 
-            okHttpClient = okHttpClient.newBuilder().addInterceptor(this::apiInterceptor).build();
+            var doesApiNeedAuthorization = accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty();
+            // if api needs authorization, add authorization interceptor to client
+            if (doesApiNeedAuthorization) {
+                okHttpClient = okHttpClient.newBuilder()
+                        .addInterceptor(this::apiInterceptor)
+                        .build();
+            }
 
             converters.add(GsonConverterFactory.create(Utility.getGson()));
 
@@ -261,39 +267,34 @@ public class CoinEx4J {
             var originalUrl = originalRequest.url();
             var queryString = originalUrl.query();
 
-            var doesApiNeedAuthorization = accessId != null && !accessId.isEmpty() && secretKey != null && !secretKey.isEmpty();
+            var queryParams = new HashMap<String, String>();
+            queryParams.put(ACCESS_ID, accessId);
 
-            if (doesApiNeedAuthorization) {
-                var queryParams = new HashMap<String, String>();
-                queryParams.put(ACCESS_ID, accessId);
+            if (queryString != null && !queryString.isEmpty())
+                queryParams.putAll(createMapFromQueryString(queryString));
 
-                if (queryString != null && !queryString.isEmpty())
-                    queryParams.putAll(createMapFromQueryString(queryString));
+            List<String> keys = new ArrayList<>(queryParams.keySet());
+            //According to the documentation, the order of the keys is important and must be sorted
+            keys = keys.stream().sorted().collect(Collectors.toList());
+            //secret key should be added to the end of the sorted list
+            queryParams.put(SECRET_KEY, secretKey);
+            keys.add(SECRET_KEY);
 
-                List<String> keys = new ArrayList<>(queryParams.keySet());
-                //According to the documentation, the order of the keys is important and must be sorted
-                keys = keys.stream().sorted().collect(Collectors.toList());
-                //secret key should be added to the end of the sorted list
-                queryParams.put(SECRET_KEY, secretKey);
-                keys.add(SECRET_KEY);
+            String pseudoQueryString = createPseudoQueryString(queryParams, keys);
 
-                String pseudoQueryString = createPseudoQueryString(queryParams, keys);
-
-                var signature = Utility.MD5(pseudoQueryString);
-                if (signature != null && !signature.isEmpty()) {
-                    //add access id to the query string for authorization
-                    var newUrl = originalUrl.newBuilder()
-                            .addQueryParameter(ACCESS_ID, accessId)
-                            .build();
-                    //add signature to header for authorization
-                    var newRequest = originalRequest.newBuilder()
-                            .url(newUrl)
-                            .addHeader(AUTHORIZATION, signature)
-                            .build();
-                    return chain.proceed(newRequest);
-                }
-            }
-            return chain.proceed(originalRequest);
+            var signature = Utility.MD5(pseudoQueryString);
+            if (signature != null && !signature.isEmpty()) {
+                //add access id to the query string for authorization
+                var newUrl = originalUrl.newBuilder()
+                        .addQueryParameter(ACCESS_ID, accessId)
+                        .build();
+                //add signature to header for authorization
+                var newRequest = originalRequest.newBuilder()
+                        .url(newUrl)
+                        .addHeader(AUTHORIZATION, signature)
+                        .build();
+                return chain.proceed(newRequest);
+            } else return chain.proceed(originalRequest);
         }
     }
 

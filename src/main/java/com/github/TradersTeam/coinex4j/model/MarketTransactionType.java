@@ -1,7 +1,7 @@
 package com.github.TradersTeam.coinex4j.model;
 
 public enum MarketTransactionType {
-    BUY("sell"), SELL("sell");
+    BUY("buy"), SELL("sell");
 
     private final String value;
 
