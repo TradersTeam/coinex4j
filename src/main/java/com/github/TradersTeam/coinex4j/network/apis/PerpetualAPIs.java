@@ -56,7 +56,7 @@ public interface PerpetualAPIs {
         /**
          * Get single market ticker info
          *
-         * @param market market name
+         * @param market perpetual market name
          * @return market ticker info
          */
         @GET(PERPETUAL_V1 + MARKET + "ticker")
@@ -73,7 +73,7 @@ public interface PerpetualAPIs {
         /**
          * Get market depth info
          *
-         * @param market market name
+         * @param market perpetual market name
          * @param merge  merge precision, take one of the value among "10", "1", "0", "0.1" and "0.01".
          * @param limit  the number of entries obtained, take one of the value among 5, 10, 20, 50 and 100.
          * @return market depth info
@@ -86,7 +86,7 @@ public interface PerpetualAPIs {
         /**
          * Acquire latest perpetual transaction data，return up to 1000
          *
-         * @param market Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
+         * @param market Required | perpetual market name
          * @param lastId Optional | Transaction history id, send 0 to draw from the latest record.
          * @param limit  Optional | Less than or equal to 1000, default 100
          * @return list of latest transaction/deals data
@@ -100,7 +100,7 @@ public interface PerpetualAPIs {
         /**
          * Get Perpetual market funding history
          *
-         * @param market    Required | <a href="https://api.coinex.com/v1/market/list">market list</a>
+         * @param market    Required | perpetual market name
          * @param offset    Required
          * @param limit     Required
          * @param startTime Optional
@@ -114,5 +114,21 @@ public interface PerpetualAPIs {
                 @Query("limit") Integer limit,
                 @Nullable @Query("start_time") Integer startTime,
                 @Nullable @Query("end_time") Integer endTime);
+
+        /**
+         * Get perpetual market KLine data
+         *
+         * @param market Required | perpetual market name
+         * @param type   Required | Supported candlestick parameters:
+         *               1min, 3min, 5min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 12hour, 1day, 3day, 1week
+         * @param limit  Optional | The number of candlesticks obtained must not be greater than 1000 (1000 by default)
+         * @return KLine data
+         */
+        @GET(PERPETUAL_V1 + MARKET + "kline")
+        CallX<ApiResponse<List<KLineData>>> getKLineData(
+                @Query("market") String market,
+                @Query("type") String type,
+                @Nullable @Query("limit") Integer limit
+        );
     }
 }
