@@ -24,7 +24,7 @@ public class DateTime extends PrettyJson {
     private final LocalDateTime localDateTime;
 
     /**
-     * if epoch time precision is in seconds,
+     * If epoch time precision is in seconds,
      * use this method for getting true date time,
      * beware that calling this method on an epoch with nanoseconds or milliseconds precision,
      * returns unexpected result

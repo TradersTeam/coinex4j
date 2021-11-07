@@ -9,7 +9,7 @@ public class Console {
                 .autoShutDown(true)
                 .build();
 
-        var call = coinEx4J.createAPI(PerpetualAPIs.class).getMarketList();
+        var call = coinEx4J.createAPI(PerpetualAPIs.Market.class).getMarketList();
         call.asyncBody(coinEx4J, (response, throwable) -> {
             if (response != null && throwable == null) {
                 System.out.println(response.data());
