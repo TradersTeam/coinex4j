@@ -22,4 +22,12 @@ public interface AccountAPIs {
      */
     @GET(V1 + "balance/info")
     CallX<ApiResponse<Map<String, AccountAsset>>> getBalance(@Query("tonce") Long tonce);
+
+    /**
+     * Inquire margin market ID map info.
+     *
+     * @return map of market names and their ids
+     */
+    @GET(V1 + "margin/market")
+    CallX<ApiResponse<Map<String, String>>> getMarginAccountMarketInfo();
 }
