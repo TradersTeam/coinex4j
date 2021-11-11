@@ -29,13 +29,13 @@
 First create a client like this, but keep in mind this will give you a default client with predefined configurations.
 
 ```java
-CoinEx4J coinEx4J=new CoinEx4J.Builder().build();
+CoinEx4J coinEx4J = new CoinEx4J.Builder().build();
 ```
 
 You can customize your client like this:
 
 ```java
-CoinEx4J coinEx4J=new CoinEx4J.Builder()
+CoinEx4J coinEx4J = new CoinEx4J.Builder()
         .autoShutDown(true)
         .accessId("...")
         .secretKey("..")
@@ -54,13 +54,13 @@ After creating your client then you need to define API group that you want to us
 interfaces.
 
 ```java
-MarketAPIs marketAPIs=coinEx4J.createAPI(MarketAPIs.class);
+MarketAPIs marketAPIs = coinEx4J.createAPI(MarketAPIs.class);
 ```
 
 Then you can use different sub APIs under that group.
 
 ```java
-marketAPIs.getMarketsInfo().asyncBody(coinEx4J,(response,error)->{
+marketAPIs.getMarketsInfo().asyncBody(coinEx4J, (response,error) -> {
         System.out.println(response.data());
         });
 ```
@@ -70,7 +70,7 @@ use `enqueue` and `execute` methods. callbacks can be called from Kotlin too. di
 here.
 
 |Callback|Info|
-|:-------:|:----------:|
+|:-------:|:----------|
 |**async**|returns a callback with type of `BiConsumer` with `Response<T>` and `Throwable` parameters |
 |**asyncCall**|returns two callbacks, one for success (`BiConsumer` with `Call<T>` and `Response<T>` parameters) and another for failure (`BiConsumer` with `Call<T>` and `Throwable` parameters)|
 |**asyncBody**|returns a callback with type of `BiConsumer` with `T` and `Throwable` as parameters|
@@ -106,7 +106,7 @@ here.
 
 - [ ] Common APIs
 - [x] System APIs
-- [ ] Market APIs
+- [ ] [Market APIs](https://github.com/TradersTeam/coinex4j/issues/37)
 - [ ] Asset APIs
 - [ ] Order APIs
 - [ ] Position APIs
