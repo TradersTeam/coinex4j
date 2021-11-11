@@ -15,6 +15,7 @@ public interface CommonAPIs {
     String BASE = R.V1 + R.SLASH + R.COMMON + R.SLASH;
     String MAINTAIN_INFO = BASE + "maintain/info";
     String ASSET_CONFIG = BASE + "asset/config";
+    String CURRENCY_RATE = BASE + "currency/rate";
 
     @GET(MAINTAIN_INFO)
     CallX<ApiResponse<SiteMaintainInfo>> getSiteMaintainInfo();
@@ -27,4 +28,7 @@ public interface CommonAPIs {
     default CallX<ApiResponse<Map<String, AssetConfig>>> getAssetConfigs() {
         return getAssetConfig(null);
     }
+
+    @GET(CURRENCY_RATE)
+    CallX<ApiResponse<Map<String, Double>>> getCurrencyRates();
 }
