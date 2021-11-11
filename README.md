@@ -68,6 +68,10 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 - [ ] Trading APIs
 - [ ] Margin APIs
 - [ ] Contract APIs
+### WebSocket APIs
+- [ ] System APIs
+- [ ] Market APIs
+- [ ] Trading APIs
 ### Perpetual APIs
 #### Perpetual HTTP
 - [ ] Common APIs
@@ -82,7 +86,7 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 - [ ] Asset APIs
 - [ ] Order APIs
 - [ ] Position APIs
-### WebSocket APIs
+
 ## Changelog
 
 ## License
