@@ -13,8 +13,8 @@ import java.util.Map;
 
 public interface PerpetualAPIs {
 
-    String PERPETUAL_V1 = "perpetual/v1/";
-    String MARKET = "market/";
+    String BASE = R.PERPETUAL + R.SLASH + R.V1 + R.SLASH;
+    String BASE_MARKET = BASE + R.MARKET + R.SLASH;
 
     interface System {
 
@@ -23,7 +23,7 @@ public interface PerpetualAPIs {
          *
          * @return "pong"
          */
-        @GET(PERPETUAL_V1 + "ping")
+        @GET(BASE + "ping")
         CallX<ApiResponse<String>> getPing();
 
         /**
@@ -31,7 +31,7 @@ public interface PerpetualAPIs {
          *
          * @return Server time in milliseconds
          */
-        @GET(PERPETUAL_V1 + "time")
+        @GET(BASE + "time")
         CallX<ApiResponse<DateTime>> getTime();
     }
 
@@ -42,7 +42,7 @@ public interface PerpetualAPIs {
          *
          * @return List of perpetual market
          */
-        @GET(PERPETUAL_V1 + MARKET + "list")
+        @GET(BASE_MARKET + "list")
         CallX<ApiResponse<List<PerpetualMarket>>> getMarketList();
 
         /**
@@ -50,7 +50,7 @@ public interface PerpetualAPIs {
          *
          * @return map of markets and their limit config
          */
-        @GET(PERPETUAL_V1 + MARKET + "limit_config")
+        @GET(BASE_MARKET + "limit_config")
         CallX<ApiResponse<Map<String, List<PerpetualLimitConfig>>>> getMarketLimitConfigList();
 
         /**
@@ -59,7 +59,7 @@ public interface PerpetualAPIs {
          * @param market perpetual market name
          * @return market ticker info
          */
-        @GET(PERPETUAL_V1 + MARKET + "ticker")
+        @GET(BASE_MARKET + "ticker")
         CallX<ApiResponse<PerpetualMarketTicker>> getMarketTicker(@Query("market") String market);
 
         /**
@@ -67,7 +67,7 @@ public interface PerpetualAPIs {
          *
          * @return map of market ticker info and current time
          */
-        @GET(PERPETUAL_V1 + MARKET + "ticker" + "/all")
+        @GET(BASE_MARKET + "ticker" + "/all")
         CallX<ApiResponse<PerpetualMarketTickers>> getMarketTickers();
 
         /**
@@ -78,7 +78,7 @@ public interface PerpetualAPIs {
          * @param limit  the number of entries obtained, take one of the value among 5, 10, 20, 50 and 100.
          * @return market depth info
          */
-        @GET(PERPETUAL_V1 + MARKET + "depth")
+        @GET(BASE_MARKET + "depth")
         CallX<ApiResponse<MarketDepth>> getMarketDepth(
                 @Query("market") String market, @Query("merge") double merge, @Range(from = 1, to = 50) @Query("limit") int limit
         );
@@ -91,7 +91,7 @@ public interface PerpetualAPIs {
          * @param limit  Optional | Less than or equal to 1000, default 100
          * @return list of latest transaction/deals data
          */
-        @GET(PERPETUAL_V1 + MARKET + "deals")
+        @GET(BASE_MARKET + "deals")
         CallX<ApiResponse<List<MarketTransaction>>> getMarketDeals(
                 @Query("market") String market,
                 @Nullable @Query("last_id") Integer lastId,
@@ -107,7 +107,7 @@ public interface PerpetualAPIs {
          * @param endTime   Optional
          * @return funding history of given market
          */
-        @GET(PERPETUAL_V1 + MARKET + "funding_history")
+        @GET(BASE_MARKET + "funding_history")
         CallX<ApiResponse<MarketFundingHistory>> getMarketFundingHistory(
                 @Query("market") String market,
                 @Query("offset") Integer offset,
@@ -124,7 +124,7 @@ public interface PerpetualAPIs {
          * @param limit  Optional | The number of candlesticks obtained must not be greater than 1000 (1000 by default)
          * @return KLine data
          */
-        @GET(PERPETUAL_V1 + MARKET + "kline")
+        @GET(BASE_MARKET + "kline")
         CallX<ApiResponse<List<KLineData>>> getKLineData(
                 @Query("market") String market,
                 @Query("type") String type,

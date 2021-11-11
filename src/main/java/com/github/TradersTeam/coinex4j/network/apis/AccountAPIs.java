@@ -10,9 +10,9 @@ import retrofit2.http.Query;
 
 import java.util.Map;
 
-import static com.github.TradersTeam.coinex4j.network.apis.MarketAPIs.V1;
-
 public interface AccountAPIs {
+
+    String BASE = R.V1 + R.SLASH;
 
     /**
      * Inquire account asset. When the total assets (available + frozen) of a coin are 0, no coin data return.
@@ -22,7 +22,7 @@ public interface AccountAPIs {
      * @param tonce Required | The timestamp of the request
      * @return account asset
      */
-    @GET(V1 + "balance/info")
+    @GET(BASE + "balance/info")
     CallX<ApiResponse<Map<String, AccountAsset>>> getBalance(@Query("tonce") Long tonce);
 
     /**
@@ -30,7 +30,7 @@ public interface AccountAPIs {
      *
      * @return map of market names and their ids
      */
-    @GET(V1 + "margin/market")
+    @GET(BASE + "margin/market")
     CallX<ApiResponse<Map<String, String>>> getMarginAccountMarketInfo();
 
     /**
@@ -44,7 +44,7 @@ public interface AccountAPIs {
      * @param businessType Optional | use SPOT or PERPETUAL, default to SPOT
      * @return market fee
      */
-    @GET(V1 + "account/market/fee")
+    @GET(BASE + "account/market/fee")
     CallX<ApiResponse<MarketFee>> getMarketFee(
             @Query("tonce") Long tonce,
             @Query("market") String market,
