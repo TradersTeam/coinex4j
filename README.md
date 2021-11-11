@@ -3,15 +3,15 @@ CoinEx Exchange API JVM Library
 
 ---
 
-| -   | -                               |
+|Icon|      Item                          |
 | ---:|:------------------------------- |
-| 📺  | [Preview](#Preview)             |
-| 📱  | [Compatibility](#Compatibility) |
-| 💻  | [Usage](#Usage)                 |
-| 📩  | [Download](#Download)           |
-| 📋  | [Features](#Features)           |
-| 🧾  | [Changelog](#Changelog)         |
-| ⚖️  | [License](#License)             |
+|📺| [Preview](#Preview)             |
+|📱| [Compatibility](#Compatibility) |
+|💻| [Usage](#Usage)                 |
+|📩| [Download](#Download)           |
+|📋| [Features](#Features)           |
+|🧾| [Changelog](#Changelog)         |
+|⚖️| [License](#License)             |
 
 ---
 
