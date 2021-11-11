@@ -62,7 +62,7 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 ### Maven
 ## Features
 ### HTTP APIs
-- [ ] Common APIs
+- [x] Common APIs
 - [x] Market APIs
 - [ ] Account APIs
 - [ ] Trading APIs
