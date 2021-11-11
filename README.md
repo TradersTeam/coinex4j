@@ -16,7 +16,7 @@ CoinEx Exchange API JVM Library
 ---
 
 ## Preview
-
+![preview](preview/preview.gif)
 ## Compatibility
 **JVM11+**
 ## Usage
