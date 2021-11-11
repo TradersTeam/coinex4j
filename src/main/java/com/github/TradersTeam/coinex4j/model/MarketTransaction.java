@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Data()
-public final class MarketTransaction extends PrettyJson {
+public class MarketTransaction extends PrettyJson {
     //Transaction No
     private final long id;
     //buy/sell
