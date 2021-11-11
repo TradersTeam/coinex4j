@@ -20,15 +20,35 @@ public interface CommonAPIs {
     @GET(MAINTAIN_INFO)
     CallX<ApiResponse<SiteMaintainInfo>> getSiteMaintainInfo();
 
+    /**
+     * Acquire asset config
+     *
+     * @param coinType Optional | Coin type, e.g. BCH.
+     *                 If no coin_type is entered,
+     *                 the asset config of all the supported coins/tokens will be returned.
+     *                 If coin_type is provided,
+     *                 the asset config of the specific coin/token will be sent back instead.
+     * @return map of key value of coin type and their asset config
+     */
     @GET(ASSET_CONFIG)
     CallX<ApiResponse<Map<String, AssetConfig>>> getAssetConfig(
             @Nullable @Query("coin_type") String coinType
     );
 
+    /**
+     * Calls {@link #getAssetConfig(String)} with null value to get all asset configs
+     *
+     * @return all asset configs
+     */
     default CallX<ApiResponse<Map<String, AssetConfig>>> getAssetConfigs() {
         return getAssetConfig(null);
     }
 
+    /**
+     * Acquire currency rate
+     *
+     * @return map of currency rates
+     */
     @GET(CURRENCY_RATE)
     CallX<ApiResponse<Map<String, Double>>> getCurrencyRates();
 }

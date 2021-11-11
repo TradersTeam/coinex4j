@@ -27,7 +27,7 @@ public interface MarketAPIs {
     CallX<ApiResponse<MarketTicker>> getMarketTicker(@Query("market") String market);
 
     /**
-     * acquire all market data
+     * Acquire all market data
      */
     @GET(V1 + MARKET + TICKER + SLASH + "all")
     CallX<ApiResponse<MarketTickers>> getMarketTickers();
