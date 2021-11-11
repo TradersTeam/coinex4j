@@ -98,6 +98,9 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 > license. Copyright and license notices must be preserved. Contributors  
 > provide an express grant of patent rights.
 ## Contributors
-[ArianTron](https://github.com/ariantron)
-
-[Yamin](https://github.com/yamin8000)
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/yamin8000"><img src="https://avatars.githubusercontent.com/u/5001708?v=4?s=100" width="100px;" alt=""/><br /><sub><b>YaMiN</b></sub></a><br /><a href="https://github.com/yamin8000/Fare/commits?author=yamin8000" title="Code"></a></td>
+    <td align="center"><a href="https://github.com/ariantron"><img src="https://avatars.githubusercontent.com/u/34502306?v=4" width="100px;" alt=""/><br /><sub><b>ArianTron</b></sub></a><br /><a href="https://github.com/ariantron" title="Code"></a></td>
+  </tr>
+</table>
