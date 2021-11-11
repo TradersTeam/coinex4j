@@ -77,6 +77,11 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 - [ ] Order APIs
 - [ ] Position APIs
 #### Perpetual WebSocket
+- [ ] Server APIs
+- [ ] Market APIs
+- [ ] Asset APIs
+- [ ] Order APIs
+- [ ] Position APIs
 ### WebSocket APIs
 ## Changelog
 
