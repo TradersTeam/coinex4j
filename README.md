@@ -79,9 +79,48 @@ here.
 
 ## Download
 
-### Gradle
+Find the latest version from [Maven Artifact](https://search.maven.org/artifact/io.github.TradersTeam/CoinEx4J)
+
+### Gradle Groovy DSL
+
+**Step 1.** Add the Maven repository to your build file  
+Add it in your root build.gradle at the end of repositories:
+
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
+**Step 2.** Add the dependency
+
+```groovy
+dependencies {
+    implementation 'io.github.TradersTeam:CoinEx4J:$coinex4j_last_version'
+}
+```
 
 ### Maven
+
+Add the dependency
+
+```xml
+
+<dependency>
+    <groupId>io.github.TradersTeam</groupId>
+    <artifactId>CoinEx4J</artifactId>
+    <version>$coinex4j_last_version</version>
+    <type>aar</type>
+</dependency>  
+```
+
+### Gradle Kotlin DSL
+
+```groovy
+dependencies {
+    implementation("io.github.TradersTeam:CoinEx4J:$coinex4j_last_version")
+}
+```
 
 ## Features
 
@@ -120,6 +159,8 @@ here.
 - [ ] Position APIs
 
 ## Changelog
+
+[1.0.0](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.0)
 
 ## License
 
