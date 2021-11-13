@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'com.github.TradersTeam'
+group 'io.github.TradersTeam'
 version '1.0-SNAPSHOT'
 
 repositories {
