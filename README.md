@@ -79,7 +79,7 @@ here.
 
 ## Download
 
-Find the latest version from [Maven Artifact](https://search.maven.org/artifact/io.github.TradersTeam/CoinEx4J)
+Find the latest version from [Maven Artifact](https://repo1.maven.org/maven2/io/github/TradersTeam/CoinEx4J/maven-metadata.xml)
 
 ### Gradle Groovy DSL
 
@@ -160,7 +160,8 @@ dependencies {
 
 ## Changelog
 
-[1.0.0](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.0)
+- [1.0.1](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.1)
+- [1.0.0](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.0)
 
 ## License
 
