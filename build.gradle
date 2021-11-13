@@ -9,13 +9,14 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'java-library'
     id 'maven-publish'
 }
 
 apply plugin: "com.vanniktech.maven.publish"
 
 group 'io.github.TradersTeam'
-version '1.0.0'
+version '1.0.1'
 
 allprojects {
     repositories {
@@ -38,8 +39,8 @@ dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
     //retrofit
     def retrofit_version = '2.9.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
     //implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
