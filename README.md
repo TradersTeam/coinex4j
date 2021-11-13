@@ -105,7 +105,6 @@ dependencies {
 Add the dependency
 
 ```xml
-
 <dependency>
     <groupId>io.github.TradersTeam</groupId>
     <artifactId>CoinEx4J</artifactId>
@@ -126,10 +125,10 @@ dependencies {
 
 ### HTTP APIs
 
-- [x] Common APIs
-- [x] Market APIs
-- [ ] Account APIs
-- [ ] Trading APIs
+- [x] [Common APIs](https://github.com/TradersTeam/coinex4j/projects/1)
+- [x] [Market APIs](https://github.com/TradersTeam/coinex4j/projects/2)
+- [ ] [Account APIs](https://github.com/TradersTeam/coinex4j/projects/3)
+- [ ] [Trading APIs](https://github.com/TradersTeam/coinex4j/projects/5)
 - [ ] Margin APIs
 - [ ] Contract APIs
 
@@ -141,13 +140,13 @@ dependencies {
 
 ### Perpetual APIs
 
-#### Perpetual HTTP
+#### [Perpetual HTTP](https://github.com/TradersTeam/coinex4j/projects/4)
 
 - [ ] Common APIs
 - [x] System APIs
 - [ ] [Market APIs](https://github.com/TradersTeam/coinex4j/issues/37)
 - [ ] Asset APIs
-- [ ] Order APIs
+- [ ] [Order APIs](https://github.com/TradersTeam/coinex4j/issues/38)
 - [ ] Position APIs
 
 #### Perpetual WebSocket
