@@ -11,15 +11,6 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id "org.sonarqube" version "3.3"
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "TradersTeam_coinex4j"
-        property "sonar.organization", "tradersteam"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
 }
 
 apply plugin: "com.vanniktech.maven.publish"
@@ -50,9 +41,7 @@ dependencies {
     def retrofit_version = '2.9.0'
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    //implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
-    //implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    //https://mvnrepository.com/artifact/org.projectlombok/lombok
+    //project lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
