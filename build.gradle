@@ -1,10 +1,33 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
+    }
+}
+
 plugins {
     id 'java'
     id 'maven-publish'
 }
 
+apply plugin: "com.vanniktech.maven.publish"
+
 group 'io.github.TradersTeam'
-version '1.0-SNAPSHOT'
+version '1.0.0'
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
+    }
+}
 
 repositories {
     mavenCentral()
