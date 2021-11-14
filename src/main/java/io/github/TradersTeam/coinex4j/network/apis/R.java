@@ -7,4 +7,5 @@ class R {
     protected static final String TICKER = "ticker";
     protected static final String COMMON = "common";
     protected static final String PERPETUAL = "perpetual";
+    protected static final String BALANCE = "balance";
 }

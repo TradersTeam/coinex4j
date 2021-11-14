@@ -5,8 +5,7 @@ import io.github.TradersTeam.coinex4j.model.perpetual.*;
 import io.github.TradersTeam.coinex4j.network.util.CallX;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
 import java.util.Map;
@@ -112,8 +111,8 @@ public interface PerpetualAPIs {
                 @Query("market") String market,
                 @Query("offset") Integer offset,
                 @Query("limit") Integer limit,
-                @Nullable @Query("start_time") Integer startTime,
-                @Nullable @Query("end_time") Integer endTime);
+                @Nullable @Query("start_time") Long startTime,
+                @Nullable @Query("end_time") Long endTime);
 
         /**
          * Get perpetual market KLine data
