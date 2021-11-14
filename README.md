@@ -142,7 +142,7 @@ dependencies {
 
 #### [Perpetual HTTP](https://github.com/TradersTeam/coinex4j/projects/4)
 
-- [ ] Common APIs
+- [x] Common APIs (System)
 - [x] System APIs
 - [ ] [Market APIs](https://github.com/TradersTeam/coinex4j/issues/37)
 - [ ] Asset APIs
