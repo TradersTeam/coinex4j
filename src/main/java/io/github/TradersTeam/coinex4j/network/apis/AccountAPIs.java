@@ -29,14 +29,6 @@ public interface AccountAPIs {
     CallX<ApiResponse<Map<String, AccountAsset>>> getBalance(@Query("tonce") Long tonce);
 
     /**
-     * Inquire margin market ID map info.
-     *
-     * @return map of market names and their ids
-     */
-    @GET(BASE + "margin/market")
-    CallX<ApiResponse<Map<String, String>>> getMarginAccountMarketInfo();
-
-    /**
      * Inquire market fee.
      *
      * @param tonce        Required | The timestamp of the request
@@ -67,6 +59,8 @@ public interface AccountAPIs {
 
     /**
      * Inquire withdrawal list.
+     * <p></p>
+     * <b>This API needs authorization</b>
      *
      * @param tonce          Required | The timestamp of the request
      * @param coinType       Optional | Coin type, e.g. BCH. Filter its withdrawal list when the parameter is passed.

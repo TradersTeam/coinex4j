@@ -71,7 +71,7 @@ public class Utility {
     }
 
     public static long getCurrentMillis() {
-        return LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+        return LocalDateTime.now(ZoneOffset.UTC).toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
     private static String byteToHexString(byte[] bytes) {
