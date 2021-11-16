@@ -7,6 +7,7 @@ import org.jetbrains.annotations.ApiStatus;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MarginAPIs {
@@ -32,4 +33,8 @@ public interface MarginAPIs {
             @Query("tonce") Long tonce,
             @Query("market") String market
     );
+
+    @ApiStatus.Experimental
+    @GET(BASE + "config")
+    CallX<ApiResponse<List<JsonObject>>> getMarginAccountSettings(@Query("tonce") Long tonce);
 }
