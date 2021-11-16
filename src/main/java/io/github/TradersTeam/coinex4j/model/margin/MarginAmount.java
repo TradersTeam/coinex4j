@@ -1,4 +1,4 @@
-package io.github.TradersTeam.coinex4j.model;
+package io.github.TradersTeam.coinex4j.model.margin;
 
 import com.google.gson.annotations.SerializedName;
 import io.github.TradersTeam.coinex4j.model.util.PrettyJson;

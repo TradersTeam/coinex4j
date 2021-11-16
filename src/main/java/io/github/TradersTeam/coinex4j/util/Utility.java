@@ -1,9 +1,9 @@
 package io.github.TradersTeam.coinex4j.util;
 
 import io.github.TradersTeam.coinex4j.model.DateTime;
-import io.github.TradersTeam.coinex4j.model.KLineData;
-import io.github.TradersTeam.coinex4j.model.MarketDepthItem;
-import io.github.TradersTeam.coinex4j.model.MarketTransactionType;
+import io.github.TradersTeam.coinex4j.model.market.KLineData;
+import io.github.TradersTeam.coinex4j.model.market.MarketDepthItem;
+import io.github.TradersTeam.coinex4j.model.market.MarketTransactionType;
 import io.github.TradersTeam.coinex4j.model.adapters.DateTimeAdapter;
 import io.github.TradersTeam.coinex4j.model.adapters.KLineDataAdapter;
 import io.github.TradersTeam.coinex4j.model.adapters.MarketDepthItemAdapter;

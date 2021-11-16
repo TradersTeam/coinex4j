@@ -1,6 +1,6 @@
 package io.github.TradersTeam.coinex4j.model.perpetual;
 
-import io.github.TradersTeam.coinex4j.model.Ticker;
+import io.github.TradersTeam.coinex4j.model.market.Ticker;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

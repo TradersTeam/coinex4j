@@ -1,5 +1,6 @@
-package io.github.TradersTeam.coinex4j.model;
+package io.github.TradersTeam.coinex4j.model.market;
 
+import io.github.TradersTeam.coinex4j.model.DateTime;
 import io.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

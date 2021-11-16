@@ -1,4 +1,4 @@
-package io.github.TradersTeam.coinex4j.model;
+package io.github.TradersTeam.coinex4j.model.market;
 
 import io.github.TradersTeam.coinex4j.model.util.PrettyJson;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Data()
-public class MarketDepthItem extends PrettyJson {
-    private final double price;
-    private final double amount;
+public class MarketFee extends PrettyJson {
+    private final double taker;
+    private final double maker;
 }

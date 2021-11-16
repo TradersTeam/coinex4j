@@ -1,6 +1,6 @@
 package io.github.TradersTeam.coinex4j.model.adapters;
 
-import io.github.TradersTeam.coinex4j.model.MarketTransactionType;
+import io.github.TradersTeam.coinex4j.model.market.MarketTransactionType;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;

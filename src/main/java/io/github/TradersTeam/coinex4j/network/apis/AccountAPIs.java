@@ -1,8 +1,9 @@
 package io.github.TradersTeam.coinex4j.network.apis;
 
-import io.github.TradersTeam.coinex4j.model.AccountAsset;
 import io.github.TradersTeam.coinex4j.model.ApiResponse;
-import io.github.TradersTeam.coinex4j.model.MarketFee;
+import io.github.TradersTeam.coinex4j.model.account.AccountAsset;
+import io.github.TradersTeam.coinex4j.model.account.CreditAccount;
+import io.github.TradersTeam.coinex4j.model.market.MarketFee;
 import io.github.TradersTeam.coinex4j.network.util.CallX;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
@@ -14,8 +15,7 @@ import java.util.Map;
 
 public interface AccountAPIs {
 
-    String BASE = R.V1 + R.SLASH;
-    String BASE_BALANCE = BASE + R.BALANCE + R.SLASH;
+    String BASE_BALANCE = R.BASE_V1 + R.BALANCE + R.SLASH;
 
     /**
      * Inquire account asset. When the total assets (available + frozen) of a coin are 0, no coin data return.
@@ -39,7 +39,7 @@ public interface AccountAPIs {
      * @param businessType Optional | use SPOT or PERPETUAL, default to SPOT
      * @return market fee
      */
-    @GET(BASE + "account/market/fee")
+    @GET(R.BASE_V1 + "account/market/fee")
     CallX<ApiResponse<MarketFee>> getMarketFee(
             @Query("tonce") Long tonce,
             @Query("market") String market,
@@ -78,4 +78,15 @@ public interface AccountAPIs {
             @Nullable @Query("page") Integer page,
             @Nullable @Query("limit") Integer limit
     );
+
+    /**
+     * Acquire Credit Account Info
+     * <p></p>
+     * <b>This API needs authorization</b>
+     *
+     * @param tonce Required | The timestamp of the request
+     * @return Credit Account Info
+     */
+    @GET(R.BASE_V1 + "credit/info")
+    CallX<ApiResponse<CreditAccount>> getCreditAccountInfo(@Query("tonce") Long tonce);
 }

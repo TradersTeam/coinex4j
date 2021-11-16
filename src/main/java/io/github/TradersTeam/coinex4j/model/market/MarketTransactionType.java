@@ -1,4 +1,4 @@
-package io.github.TradersTeam.coinex4j.model;
+package io.github.TradersTeam.coinex4j.model.market;
 
 public enum MarketTransactionType {
     BUY("buy"), SELL("sell");

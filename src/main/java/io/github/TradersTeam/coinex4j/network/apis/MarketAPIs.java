@@ -1,6 +1,7 @@
 package io.github.TradersTeam.coinex4j.network.apis;
 
 import io.github.TradersTeam.coinex4j.model.*;
+import io.github.TradersTeam.coinex4j.model.market.*;
 import io.github.TradersTeam.coinex4j.network.util.CallX;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
