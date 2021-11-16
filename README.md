@@ -159,6 +159,7 @@ dependencies {
 
 ## Changelog
 
+- [1.0.2](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.2)
 - [1.0.1](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.1)
 - [1.0.0](https://github.com/TradersTeam/coinex4j/releases/tag/1.0.0)
 
