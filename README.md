@@ -26,6 +26,8 @@
 
 ## Usage
 
+Read documentation here: [![javadoc](https://javadoc.io/badge2/io.github.TradersTeam/CoinEx4J/javadoc.svg)](https://javadoc.io/doc/io.github.TradersTeam/CoinEx4J) 
+
 First create a client like this, but keep in mind this will give you a default client with predefined configurations.
 
 ```java
