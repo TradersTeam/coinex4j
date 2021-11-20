@@ -49,10 +49,10 @@ CoinEx4J coinEx4J = new CoinEx4J.Builder()
 ```
 
 If you are using this library in JVM only (not Android) like in console for debugging or a server it's suggested to
-enabling `autoShutDown` otherwise JVM may or may not exit after task completion depending on `OkHttp` client
+enable `autoShutDown` otherwise JVM may or may not exit after task completion depending on `OkHttp` client
 timeout, [more info here](https://github.com/square/retrofit/issues/3144).
 
-After creating your client then you need to define API group that you want to use, which are actually retrofit
+After creating your client then you need to define the API group that you want to use, which are actually retrofit
 interfaces.
 
 ```java
