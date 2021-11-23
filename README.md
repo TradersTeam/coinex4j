@@ -20,6 +20,8 @@
 
 ![preview](preview/preview.gif)
 
+CoinEx4j is a JVM(Java, Kotlin, etc) library for using [CoinEx Exchange API](https://github.com/coinexcom/coinex_exchange_api/wiki). This library aims to provide an easy-to-use abstraction over official API.
+
 ## Compatibility
 
 **JVM11+**
