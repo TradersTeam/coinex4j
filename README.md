@@ -4,15 +4,15 @@
 
 ---
 
-|Icon|      Item                          |
-| :---:|:-------------------------------: |
-|📺| [**Preview**](#Preview)             |
-|📱| [**Compatibility**](#Compatibility) |
-|💻| [**Usage**](#Usage)                 |
-|📩| [**Download**](#Download)           |
-|📋| [**Features**](#Features)           |
-|🧾| [**Changelog**](#Changelog)         |
-|⚖️| [**License**](#License)             |
+| Icon |                Item                 |
+|:----:|:-----------------------------------:|
+|  📺  |       [**Preview**](#Preview)       |
+|  📱  | [**Compatibility**](#Compatibility) |
+|  💻  |         [**Usage**](#Usage)         |
+|  📩  |      [**Download**](#Download)      |
+|  📋  |      [**Features**](#Features)      |
+|  🧾  |     [**Changelog**](#Changelog)     |
+|  ⚖️  |       [**License**](#License)       |
 
 ---
 
@@ -20,7 +20,9 @@
 
 ![preview](preview/preview.gif)
 
-CoinEx4j is a JVM(Java, Kotlin, etc) library for using [CoinEx Exchange API](https://github.com/coinexcom/coinex_exchange_api/wiki). This library aims to provide an easy-to-use abstraction over official API.
+CoinEx4j is a JVM(Java, Kotlin, etc.) library for
+using [CoinEx Exchange API](https://github.com/coinexcom/coinex_exchange_api/wiki). This library aims to provide an
+easy-to-use abstraction over official API.
 
 ## Compatibility
 
@@ -28,18 +30,19 @@ CoinEx4j is a JVM(Java, Kotlin, etc) library for using [CoinEx Exchange API](htt
 
 ## Usage
 
-Read documentation here: [![javadoc](https://javadoc.io/badge2/io.github.TradersTeam/CoinEx4J/javadoc.svg)](https://javadoc.io/doc/io.github.TradersTeam/CoinEx4J) 
+Read documentation
+here: [![javadoc](https://javadoc.io/badge2/io.github.TradersTeam/CoinEx4J/javadoc.svg)](https://javadoc.io/doc/io.github.TradersTeam/CoinEx4J)
 
 First create a client like this, but keep in mind this will give you a default client with predefined configurations.
 
 ```java
-CoinEx4J coinEx4J = new CoinEx4J.Builder().build();
+CoinEx4J coinEx4J=new CoinEx4J.Builder().build();
 ```
 
 You can customize your client like this:
 
 ```java
-CoinEx4J coinEx4J = new CoinEx4J.Builder()
+CoinEx4J coinEx4J=new CoinEx4J.Builder()
         .autoShutDown(true)
         .accessId("...")
         .secretKey("..")
@@ -58,13 +61,13 @@ After creating your client then you need to define the API group that you want t
 interfaces.
 
 ```java
-MarketAPIs marketAPIs = coinEx4J.createAPI(MarketAPIs.class);
+MarketAPIs marketAPIs=coinEx4J.createAPI(MarketAPIs.class);
 ```
 
 Then you can use different sub APIs under that group.
 
 ```java
-marketAPIs.getMarketsInfo().asyncBody(coinEx4J, (response,error) -> {
+marketAPIs.getMarketsInfo().asyncBody(coinEx4J,(response,error)->{
         System.out.println(response.data());
         });
 ```
@@ -73,17 +76,18 @@ Custom callbacks are provided using retrofit call adapter feature and Java `Cons
 use `enqueue` and `execute` methods. callbacks can be called from Kotlin too. different types of callbacks are explained
 here.
 
-|Callback|Info|
-|:-------:|:----------|
-|**async**|returns a callback with type of `BiConsumer` with `Response<T>` and `Throwable` parameters |
-|**asyncCall**|returns two callbacks, one for success (`BiConsumer` with `Call<T>` and `Response<T>` parameters) and another for failure (`BiConsumer` with `Call<T>` and `Throwable` parameters)|
-|**asyncBody**|returns a callback with type of `BiConsumer` with `T` and `Throwable` as parameters|
+| Callback  | Info                                                                                                                                                                               |
+|:---------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   async   | returns a callback with type of `BiConsumer` with `Response<T>` and `Throwable` parameters                                                                                         |                                                                                                                                                                             |
+| asyncCall | returns two callbacks, one for success (`BiConsumer` with `Call<T>` and `Response<T>` parameters) and another for failure (`BiConsumer` with `Call<T>` and `Throwable` parameters) |
+| asyncBody | returns a callback with type of `BiConsumer` with `T` and `Throwable` as parameters                                                                                                |
 
 `T` is response body type.
 
 ## Download
 
-Find the latest version from [Maven Artifact](https://repo1.maven.org/maven2/io/github/TradersTeam/CoinEx4J/maven-metadata.xml)
+Find the latest version
+from [Maven Artifact](https://repo1.maven.org/maven2/io/github/TradersTeam/CoinEx4J/maven-metadata.xml)
 
 ### Gradle Groovy DSL
 
@@ -109,6 +113,7 @@ dependencies {
 Add the dependency
 
 ```xml
+
 <dependency>
     <groupId>io.github.TradersTeam</groupId>
     <artifactId>CoinEx4J</artifactId>
